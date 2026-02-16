@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/><meta name="theme-color" content="#3b3e43"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="format-detection" content="telephone=no"/><title>【MCA】马士兵Java互联网高级架构师--百度网盘下载 - vx1039576978 的个人博客</title><meta name="description" content="【微信1039576978，获取马士兵mca架构师全套课程】 课程1-Java高级互联网架构师-SpringBoot入门 网盘download：** 【MCA】Java互联网高级架构师【马士兵】** 提娶吗：di7v 课程主要内容 MVC架构思想 使用STS构建SpringBoot项目 使用SpringBoot构建Mvcweb项目 MVCWeb项目中的注入 热部署 介绍 SpringBoot主要解决的是在微服务的架构下简化配置（有快速配置）、前后端分离、快速开发 优点： 提供了快速启动入门 开箱即用、提供默认配置 内嵌容器化web项目 没有冗余代码生成和xml配置要求 2.运行 创建项目 创建SpringBoot项目的几种方式： 官网的Initializr 使用Eclipse、STS、Idea等IDE创建Maven项目并引入依赖 使用STS插件的SpringInitializr创建项目 ** 进入Spring项目Initializr** 生成下载demo.zip 导入项目 1.Import一个Maven项目 2.选择要导入的文件 3.项目骨架 启动项目 直接run启动程序里的Main（...."/><meta property="og:description" content="【微信1039576978，获取马士兵mca架构师全套课程】 课程1-Java高级互联网架构师-SpringBoot入门 网盘download：** 【MCA】Java互联网高级架构师【马士兵】** 提娶吗：di7v 课程主要内容 MVC架构思想 使用STS构建SpringBoot项目 使用SpringBoot构建Mvcweb项目 MVCWeb项目中的注入 热部署 介绍 SpringBoot主要解决的是在微服务的架构下简化配置（有快速配置）、前后端分离、快速开发 优点： 提供了快速启动入门 开箱即用、提供默认配置 内嵌容器化web项目 没有冗余代码生成和xml配置要求 2.运行 创建项目 创建SpringBoot项目的几种方式： 官网的Initializr 使用Eclipse、STS、Idea等IDE创建Maven项目并引入依赖 使用STS插件的SpringInitializr创建项目 ** 进入Spring项目Initializr** 生成下载demo.zip 导入项目 1.Import一个Maven项目 2.选择要导入的文件 3.项目骨架 启动项目 直接run启动程序里的Main（...."/>    <meta name="keywords" content="Solo,Java,博客,开源"/><link rel="dns-prefetch" href="https://vx642620018.github.io"/><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"/><link rel="preconnect" href="https://vx642620018.github.io"><link rel="icon" type="image/png" href="https://b3log.org/images/brand/solo-128.png"/><link rel="apple-touch-icon" href="https://b3log.org/images/brand/solo-128.png"><link rel="shortcut icon" type="image/x-icon" href="https://b3log.org/images/brand/solo-128.png"><meta name="copyright" content="B3log"/><meta http-equiv="Window-target" content="_top"/><meta property="og:locale" content="zh_CN"/><meta property="og:title" content="【MCA】马士兵Java互联网高级架构师--百度网盘下载 - vx1039576978 的个人博客"/><meta property="og:site_name" content="vx1039576978 的个人博客"/><meta property="og:url"      content="https://vx642620018.github.io/articles/2021/08/01/1627820105772.html?"/><meta property="og:image" content="https://b3log.org/images/brand/solo-128.png"/><link rel="search" type="application/opensearchdescription+xml" title="【MCA】马士兵Java互联网高级架构师--百度网盘下载 - vx1039576978 的个人博客" href="/opensearch.xml"><link href="https://vx642620018.github.io/rss.xml" title="RSS" type="application/rss+xml" rel="alternate"/><link rel="manifest" href="https://vx642620018.github.io/manifest.json">        <link rel="canonical" href="https://vx642620018.github.io/articles/2021/08/01/1627820105772.html">            <link rel="stylesheet"
+                  href="https://vx642620018.github.io/skins/i-nove/css/base.css?1771161338301"/>
+            <link rel="prev" title="图灵架构师vip课程2345期--百度网盘下载--监听TCP端口号：从简单Socket到NIO到Netty" href="https://vx642620018.github.io/articles/2021/07/24/1627118603935.html">
+            <link rel="next" title="图灵架构师五期vip课程百度网盘下载--谈谈对Spring IOC的理解" href="https://vx642620018.github.io/articles/2021/09/04/1630761965252.html">
+    <script src="https://vx642620018.github.io/js/lib/vditor/dist/js/icons/ant.js?v=3.9.7" async="" id="vditorIconScript"></script>    </head>
+    <body>
+        
+        <div class="bg">
+            <div class="wrapper">
+                <div class="content">
+<div class="header">
+    <h1 class="title">
+        <a href="https://vx642620018.github.io" id="logoTitle">
+            vx1039576978 的个人博客
+        </a>
+    </h1>
+    <span class="sub-title">记录精彩的程序人生</span>
+</div>
+<div id="header-navi">
+    <div class="left">
+        <ul>
+            <li>
+                <a rel="nofollow" class="home" href="https://vx642620018.github.io"></a>
+            </li>
+            <li>
+                <a href="https://vx642620018.github.io/tags.html">标签墙</a>
+            </li>
+            <li>
+                <a rel="alternate" href="https://vx642620018.github.io/rss.xml">
+                    RSS
+                    <img src="https://vx642620018.github.io/images/feed.png" alt="RSS"/>
+                </a>
+            </li>
+            <li>
+                <a class="lastNavi" href="javascript:void(0);"></a>
+            </li>
+        </ul>
+    </div>
+    <div class="right" id="statistic">
+        <span>
+            浏览数：
+            <span class='error-msg'>
+                <span data-uvstaturl="https://vx642620018.github.io">0</span>
+            </span>
+            &nbsp;&nbsp;
+        </span>
+        <span>
+            文章总数：
+            <span class='error-msg'>
+                161
+            </span>
+            &nbsp;&nbsp;
+        </span>
+    </div>
+    <div class="clear"></div>
+</div>
+                    <div class="body">
+                        <div class="left main">
+                            <div class="article">
+                                <h2 class="article-title">
+                                    <a class="no-underline" href="https://vx642620018.github.io/articles/2021/08/01/1627820105772.html">【MCA】马士兵Java互联网高级架构师--百度网盘下载</a>
+                                </h2>
+                                <div class="margin5">
+                                    <div class="article-date left">
+                                        <a rel="nofollow" class="left" title="vx1039576978" href="https://vx642620018.github.io/authors/1731863538096">
+                                            <span class="authorIcon"></span>
+                                            vx1039576978
+                                        </a>
+                                        <span class="dateIcon left"></span>
+                                        2021-08-01 20:15:05
+                                    </div>
+                                    <div class="right">
+                                        <a rel="nofollow" href="https://vx642620018.github.io/articles/2021/08/01/1627820105772.html#b3logsolocomments" class="left">
+                                            <span class="left articles-commentIcon" title="评论"></span>
+                                            <span data-uvstatcmt="1627820105077">0</span>
+                                        </a>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="vditor-reset vditor-reset--article">
+                                    <p>【微信1039576978，获取马士兵mca架构师全套课程】</p>
+<h3 id="toc_h3_0"><strong>课程1-Java高级互联网架构师-SpringBoot入门</strong></h3>
+<p><strong>网盘download：</strong><a href="https://pan.baidu.com/s/1ci9H1QGr1z_0l64d-MPYYg" target="_blank">** 【MCA】Java互联网高级架构师【马士兵】**</a></p>
+<p><strong>提娶吗：di7v</strong></p>
+<h4 id="toc_h4_1"><strong>课程主要内容</strong></h4>
+<ul>
+<li><strong>MVC架构思想</strong></li>
+<li><strong>使用STS构建SpringBoot项目</strong></li>
+<li><strong>使用SpringBoot构建Mvcweb项目</strong></li>
+<li><strong>MVCWeb项目中的注入</strong></li>
+<li><strong>热部署</strong></li>
+</ul>
+<h4 id="toc_h4_2"><strong><strong>介绍</strong></strong></h4>
+<p><strong>SpringBoot主要解决的是在微服务的架构下简化配置（有快速配置）、前后端分离、快速开发</strong></p>
+<p><strong>优点：</strong></p>
+<ul>
+<li><strong>提供了快速启动入门</strong></li>
+<li><strong>开箱即用、提供默认配置</strong></li>
+<li><strong>内嵌容器化web项目</strong></li>
+<li><strong>没有冗余代码生成和xml配置要求</strong></li>
+</ul>
+<h4 id="toc_h4_3"><strong><strong>2.运行</strong></strong></h4>
+<p><strong><strong>创建项目</strong></strong></p>
+<p><strong>创建SpringBoot项目的几种方式：</strong></p>
+<ul>
+<li><strong>官网的Initializr</strong></li>
+<li><strong>使用Eclipse、STS、Idea等IDE创建Maven项目并引入依赖</strong></li>
+<li><strong>使用STS插件的SpringInitializr创建项目</strong></li>
+</ul>
+<p><a href="http://start.spring.io/" target="_blank">** 进入Spring项目Initializr**</a></p>
+<p><img src="https://b3logfile.com/file/2021/08/solo-fetchupload-3091199913170621520-1cf9cb75.jpeg?imageView2/2/w/1280/format/jpg/interlace/1/q/100" alt="watermark,size_14,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_20,type_ZmFuZ3poZW5naGVpdGk="></p>
+<p><strong>生成下载demo.zip</strong></p>
+<p><strong><strong>导入项目</strong></strong></p>
+<p><strong>1.Import一个Maven项目</strong></p>
+<p><img src="https://b3logfile.com/file/2021/08/solo-fetchupload-1707743744916218314-78969644.jpeg?imageView2/2/w/1280/format/jpg/interlace/1/q/100" alt="watermark,size_14,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_20,type_ZmFuZ3poZW5naGVpdGk="></p>
+<p><strong>2.选择要导入的文件</strong></p>
+<p><img src="https://b3logfile.com/file/2021/08/solo-fetchupload-1951021562702540151-fd1063b0.jpeg?imageView2/2/w/1280/format/jpg/interlace/1/q/100" alt="watermark,size_14,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_20,type_ZmFuZ3poZW5naGVpdGk="></p>
+<p><strong>3.项目骨架</strong></p>
+<p><img src="https://b3logfile.com/file/2021/08/solo-fetchupload-8800861660709216178-ac5e545c.jpeg?imageView2/2/w/1280/format/jpg/interlace/1/q/100" alt="watermark,size_14,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_20,type_ZmFuZ3poZW5naGVpdGk="></p>
+<p><strong><strong>启动项目</strong></strong></p>
+<ul>
+<li><strong>直接run启动程序里的Main（）方法</strong></li>
+<li><strong>安装过STS插件或使用STS可以在项目上右键RunAS-&gt;Spring Boot APP</strong></li>
+</ul>
+<p><strong>运行成功提示信息：</strong></p>
+<p><img src="https://b3logfile.com/file/2021/08/solo-fetchupload-5965222703892651702-8a96ca90.jpeg?imageView2/2/w/1280/format/jpg/interlace/1/q/100" alt="watermark,size_14,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_20,type_ZmFuZ3poZW5naGVpdGk="></p>
+<hr>
+<p><strong><strong>如果运行报错，请参照常见问题。</strong></strong></p>
+<p><strong><strong>个性化</strong></strong></p>
+<h3 id="toc_h3_4"><strong><strong>修改启动banner</strong></strong></h3>
+<p><strong>在resources目录下新建banner.txt</strong></p>
+<p>** **<a href="http://www.network-science.de/ascii/" target="_blank">** 英文**</a></p>
+<p><a href="https://www.degraeve.com/img2txt.php" target="_blank">** 图片**</a></p>
+<hr>
+<h3 id="toc_h3_5"><strong><strong>Eclipse的皮肤</strong></strong></h3>
+<p><strong>菜单栏中</strong></p>
+<p><strong>Help -&gt; EclipseMarketplace</strong></p>
+<p><strong>搜索Theme</strong></p>
+<p><img src="https://b3logfile.com/file/2021/08/solo-fetchupload-837417256573054036-1ec4eb37.jpeg?imageView2/2/w/1280/format/jpg/interlace/1/q/100" alt="watermark,size_14,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_20,type_ZmFuZ3poZW5naGVpdGk="></p>
+<p><strong>傻瓜式安装这个，安装完成会提示重启，跟随指引选择喜欢的风格。</strong></p>
+<p><img src="https://b3logfile.com/file/2021/08/solo-fetchupload-778013217652368324-70b979ed.png?imageView2/2/w/1280/format/jpg/interlace/1/q/100" alt="watermark,size_14,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_20,type_ZmFuZ3poZW5naGVpdGk="></p>
+<h2 id="toc_h2_6"><strong><strong>简单使用</strong></strong></h2>
+<h3 id="toc_h3_7"><strong><strong>application.properties</strong></strong></h3>
+<p><strong>把所有的配置全放在这个文件里，方便统一管理，maven也可以做到</strong></p>
+<h3 id="toc_h3_8"><strong><strong>修改tomcat端口</strong></strong></h3>
+<p><strong>server.port=90</strong></p>
+<h3 id="toc_h3_9"><strong><strong>修改项目路径</strong></strong></h3>
+<p>**server.servlet.context-path=/demo **</p>
+<hr>
+<p><img src="https://b3logfile.com/file/2021/08/solo-fetchupload-330016512848751329-396fa521.jpeg?imageView2/2/w/1280/format/jpg/interlace/1/q/100" alt="watermark,size_14,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_20,type_ZmFuZ3poZW5naGVpdGk="></p>
+<h3 id="toc_h3_10"><strong><strong>多个入口main方法，打包之后找不到入库类</strong></strong></h3>
+<pre><code>&lt;build&gt;
+
+ &nbsp; &lt;plugins&gt;
+
+ &nbsp; &nbsp; &nbsp;&lt;plugin&gt; &nbsp;
+
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &nbsp;
+
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt; &nbsp;
+
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;configuration&gt; &nbsp;
+
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;mainClass&gt;com.mashibing.MyApp&lt;/mainClass&gt; &nbsp;
+
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;/configuration&gt; &nbsp;
+
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&lt;/plugin&gt; &nbsp;
+
+ &nbsp; &nbsp; &nbsp; &nbsp;&lt;/plugins&gt;
+
+&lt;/build&gt;
+</code></pre>
+<hr>
+<h3 id="toc_h3_11"><strong><strong>HelloWorld</strong></strong></h3>
+<h4 id="toc_h4_12"><strong><strong>RestController</strong></strong></h4>
+<p><strong>RestController = @Controller+@ResponseBody</strong></p>
+<p><img src="https://b3logfile.com/file/2021/08/solo-fetchupload-7609782043281272442-dbbc7f73.jpeg?imageView2/2/w/1280/format/jpg/interlace/1/q/100" alt="watermark,size_14,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_20,type_ZmFuZ3poZW5naGVpdGk="></p>
+<p><strong>一个效果</strong></p>
+<hr>
+<pre><code>@RestController
+
+
+
+
+public class MyAppController {
+
+
+
+
+@RequestMapping("/")
+
+public Map&lt;String, String&gt; &nbsp;index() {
+
+ &nbsp; &nbsp;Map&lt;String, String&gt; map = new HashMap&lt;&gt;();
+ &nbsp; &nbsp;map.put("aaa", "bbb");
+
+ &nbsp; &nbsp;map.put("aaa", "bbb");
+
+ &nbsp; &nbsp;map.put("aaa", "bbb");
+
+ &nbsp; &nbsp;map.put("aaa", "bbb");
+
+ &nbsp; &nbsp;return map;
+
+}
+</code></pre>
+<h4 id="toc_h4_13"><strong><strong>使用thymeleaf模板引擎</strong></strong></h4>
+<h5 id="toc_h5_14"><strong><strong>Pom.xml引用</strong></strong></h5>
+<pre><code>&lt;dependency&gt;
+
+ &nbsp; &nbsp;&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+
+ &nbsp; &nbsp;&lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;/artifactId&gt;
+
+&lt;/dependency&gt;
+</code></pre>
+<h5 id="toc_h5_15"><strong><strong>Controller代码</strong></strong></h5>
+<pre><code>@Controller
+
+public class IndexController {
+
+
+
+
+@RequestMapping("/")
+
+public String index(ModelMap map) {
+
+
+
+
+// 加入一个属性，用来在模板中读取
+
+map.addAttribute("msg", "nihao~");
+
+return模板文件的名称，对应src/main/resources/templates/index.html
+
+
+
+
+return "index";
+
+}
+</code></pre>
+<h5 id="toc_h5_16"><strong><strong>模板文件代码</strong></strong></h5>
+<pre><code>&lt;h1 th:text="${msg}"&gt;hi!&lt;/h1&gt;
+</code></pre>
+<h3 id="toc_h3_17"><strong><strong>稍微复杂的restful api应用</strong></strong></h3>
+<h4 id="toc_h4_18"><strong><strong>UserRestfulController</strong></strong></h4>
+<pre><code>@RequestMapping("/")
+
+@RestController
+
+public class UserRestfulController {
+
+
+
+
+static Map&lt;Long, User&gt; users = Collections.synchronizedMap(new HashMap&lt;Long,User&gt;());
+
+@RequestMapping(value="/User",method=RequestMethod.GET)
+
+public List&lt;User&gt; getUserList(){
+
+ArrayList&lt;User&gt; list = new ArrayList&lt;&gt;(users.values());
+
+return &nbsp;list;
+
+
+
+
+}
+
+
+
+
+@RequestMapping(value="User",method=RequestMethod.POST)
+
+public String addUser(@ModelAttribute User user) {
+
+users.put(user.getId(), user);
+
+return "addUser Success";
+
+
+
+
+}
+
+}
+</code></pre>
+<h4 id="toc_h4_19"><strong><strong>User</strong></strong></h4>
+<pre><code>public class User {
+
+
+
+
+private Long id;
+
+private String loginName;
+
+private String password;
+
+private String nickName;
+</code></pre>
+<h3 id="toc_h3_20"><strong><strong>注入Service</strong></strong></h3>
+<h4 id="toc_h4_21"><strong><strong>UserRestfulController</strong></strong></h4>
+<pre><code>@Autowired
+
+private UserService userSrv;
+
+
+
+
+
+
+
+@RequestMapping(value="/User",method=RequestMethod.GET)
+
+public List&lt;User&gt; getUserList(){
+
+
+
+
+return &nbsp;userSrv.getUserList();
+
+}
+
+@RequestMapping(value="User",method=RequestMethod.POST)
+
+public String addUser(@ModelAttribute User user) {
+
+String msg = userSrv.addUser(user);
+
+return msg;
+
+}
+</code></pre>
+<h4 id="toc_h4_22"><strong><strong>UserService</strong></strong></h4>
+<pre><code>@Service
+
+public class UserService {
+
+ &nbsp; &nbsp;static Map&lt;Long, User&gt; users = Collections.synchronizedMap(new HashMap&lt;Long,User&gt;());
+
+ &nbsp; &nbsp;public List&lt;User&gt; getUserList() {
+
+ &nbsp; &nbsp;ArrayList&lt;User&gt; list = new ArrayList&lt;&gt;(users.values());
+
+ &nbsp; &nbsp;return list;
+
+}
+
+
+
+
+public String addUser(User user) {
+
+ &nbsp; &nbsp;users.put(user.getId(), user);
+
+ &nbsp; &nbsp;return "addUser Success";
+
+}
+
+</code></pre>
+<h3 id="toc_h3_23"><strong><strong>前端模板显示</strong></strong></h3>
+<hr>
+<pre><code>&lt;h1&gt;User list&lt;/h1&gt;
+
+ &nbsp;&lt;table&gt;
+
+ &nbsp; &nbsp;&lt;tr&gt;
+
+ &nbsp; &nbsp; &nbsp;&lt;th&gt;NAME&lt;/th&gt;
+
+ &nbsp; &nbsp; &nbsp;&lt;th&gt;loginName&lt;/th&gt;
+
+ &nbsp; &nbsp; &nbsp;&lt;th&gt;nickName&lt;/th&gt;
+
+ &nbsp; &nbsp;&lt;/tr&gt;
+
+ &nbsp; &nbsp;&lt;tr th:each="user : ${list}"&gt;
+
+ &nbsp; &nbsp; &nbsp;&lt;td th:text="${user.id}"&gt;id&lt;/td&gt;
+
+ &nbsp; &nbsp; &nbsp;&lt;td th:text="${user.loginName}"&gt;loginName&lt;/td&gt;
+
+ &nbsp; &nbsp; &nbsp;&lt;td th:text="${user.nickName}"&gt;nickName&lt;/td&gt;
+
+ &nbsp; &nbsp;&lt;/tr&gt;
+
+ &nbsp;&lt;/table&gt;
+
+&lt;p&gt;
+
+ &nbsp; &nbsp;&lt;a href="../home.html" th:href="@{/}"&gt;Return to home&lt;/a&gt;
+
+ &nbsp;&lt;/p&gt;
+</code></pre>
+<hr>
+<h2 id="toc_h2_24"><strong><strong>常见问题</strong></strong></h2>
+<h3 id="toc_h3_25"><strong><strong>Pom.xml</strong></strong></h3>
+<p><strong>Springboot项目必须要继承的parent</strong></p>
+<p><img src="https://b3logfile.com/file/2021/08/solo-fetchupload-8448372439537592966-1d364f50.jpeg?imageView2/2/w/1280/format/jpg/interlace/1/q/100" alt="watermark,size_14,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_20,type_ZmFuZ3poZW5naGVpdGk="></p>
+<h3 id="toc_h3_26"><strong><strong>Pom.xml第一行报错</strong></strong></h3>
+<p><strong>进入本地库</strong></p>
+<p>**for /r %i in (*.lastUpdated) do del %i  **</p>
+<p><strong>然后update</strong></p>
+<h3 id="toc_h3_27"><strong><strong>缺少或包错误</strong></strong></h3>
+<p><img src="https://b3logfile.com/file/2021/08/solo-fetchupload-6111260873809789867-7425c2f1.jpeg?imageView2/2/w/1280/format/jpg/interlace/1/q/100" alt="watermark,size_14,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_20,type_ZmFuZ3poZW5naGVpdGk="></p>
+<p><strong>删掉 重新update</strong></p>
+<h3 id="toc_h3_28"><strong><strong>找不到主类</strong></strong></h3>
+<p><img src="https://b3logfile.com/file/2021/08/solo-fetchupload-3870366982192918587-0b9fa3e4.jpeg?imageView2/2/w/1280/format/jpg/interlace/1/q/100" alt="watermark,size_14,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_20,type_ZmFuZ3poZW5naGVpdGk="></p>
+<p><strong>所有错误都解决后</strong></p>
+<p><strong>Jar方式运行 首先得有这个jar包</strong></p>
+<p><strong>先clean package 生成jar文件，然后再run main方法</strong></p>
+<hr>
+<h3 id="toc_h3_29"><strong><strong>找不到jdk</strong></strong></h3>
+<hr>
+<p><img src="https://b3logfile.com/file/2021/08/solo-fetchupload-3376779848864104816-ef5d45a8.jpeg?imageView2/2/w/1280/format/jpg/interlace/1/q/100" alt="watermark,size_14,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_20,type_ZmFuZ3poZW5naGVpdGk="></p>
+<p><img src="https://b3logfile.com/file/2021/08/solo-fetchupload-1477800381206264354-baf9dc5f.jpeg?imageView2/2/w/1280/format/jpg/interlace/1/q/100" alt="watermark,size_14,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_20,type_ZmFuZ3poZW5naGVpdGk="></p>
+<p><strong>把jre的路径换成jdk的</strong></p>
+<hr>
+<h3 id="toc_h3_30"><strong><strong>启动后自动停止</strong></strong></h3>
+<p><img src="https://b3logfile.com/file/2021/08/solo-fetchupload-1347395368533038229-9574c4e6.jpeg?imageView2/2/w/1280/format/jpg/interlace/1/q/100" alt="watermark,size_14,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_20,type_ZmFuZ3poZW5naGVpdGk="></p>
+<hr>
+                                    <div class="marginTop12">
+                                        <hr>
+
+标题：【MCA】马士兵Java互联网高级架构师--百度网盘下载<br>
+作者：<a href="https://vx642620018.github.io" target="_blank">vx1039576978</a><br>
+地址：<a href="https://vx642620018.github.io/articles/2021/08/01/1627820105772.html" target="_blank">https://vx642620018.github.io/articles/2021/08/01/1627820105772.html</a><br>
+
+<!-- 签名档内可使用 HTML、JavaScript -->
+<br>
+                                    </div>
+                                </div>
+                                <div class="margin5">
+                                    <a rel="nofollow" class="left" href="https://vx642620018.github.io/articles/2021/08/01/1627820105772.html">
+                                        <span title="浏览" class="left article-browserIcon"></span>
+                                        <span data-uvstaturl="https://vx642620018.github.io/articles/2021/08/01/1627820105772.html">0</span>
+                                    </a>
+                                    <div class="left">
+                                        <span title="标签" class="tagsIcon"></span>
+                                        <span>
+                                            <a rel="tag" href="https://vx642620018.github.io/tags/vip%E8%AF%BE%E7%A8%8B">
+                                                vip课程</a>,
+                                        </span>
+                                        <span>
+                                            <a rel="tag" href="https://vx642620018.github.io/tags/%E6%9E%B6%E6%9E%84%E5%B8%88">
+                                                架构师</a>,
+                                        </span>
+                                        <span>
+                                            <a rel="tag" href="https://vx642620018.github.io/tags/%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98">
+                                                百度网盘</a>,
+                                        </span>
+                                        <span>
+                                            <a rel="tag" href="https://vx642620018.github.io/tags/%E9%A9%AC%E5%A3%AB%E5%85%B5">
+                                                马士兵</a>
+                                        </span>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div>
+                                    <div class="right">
+                                        <a href="https://vx642620018.github.io/articles/2021/09/04/1630761965252.html">新一篇：图灵架构师五期vip课程百度网盘下载--谈谈对Spring IOC的理解</a>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="right">
+                                        <a href="https://vx642620018.github.io/articles/2021/07/24/1627118603935.html">旧一篇：图灵架构师vip课程2345期--百度网盘下载--监听TCP端口号：从简单Socket到NIO到Netty</a>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div id="relevantArticles" class="article-relative"></div>
+                                <div id="randomArticles" class="article-relative"></div>
+                                <div id="externalRelevantArticles" class="article-relative"></div>
+                            </div>
+                                <div id="gitalk-container" class="comments" style="padding-top: 15px"></div>
+                                <div id="b3logsolocomments"></div>
+                                <div id="vcomment" class="comments"
+                                 style="padding-top: 15px"
+                                 data-name="vx1039576978" data-postId="1627820105077"></div>
+                        </div>
+                        <div class="right">
+<div id="sideNavi" class="side-navi">
+    <div class="item">
+        <h4>公告</h4>
+        <div class="marginLeft12 marginTop12">
+            Open Source, Open Mind, <br/>Open Sight, Open Future!
+
+<!-- 公告栏可使用 HTML、JavaScript，比如可以在此加入第三方统计 js -->
+        </div>
+        <div class="marginTop12 marginLeft12">
+    <a href="https://ld246.com/member/vx1039576978"
+       aria-label="https://ld246.com/member/vx1039576978"
+       class="vditor-tooltipped__nw vditor-tooltipped  user__site"
+       target="_blank" rel="noopener nofollow">
+        <svg viewBox="0 0 32 32" width="100%" height="100%">
+            <path fill="#d23f31" style="fill: var(--color1, #d23f31)" d="M5.787 17.226h17.033l5.954 9.528c0.47 0.752 0.003 1.361-1.042 1.361h-15.141z"></path>
+            <path d="M10.74 3.927h17.033c1.045 0 1.512 0.609 1.042 1.361l-5.954 9.528h-19.872l6.379-10.209c0.235-0.376 0.849-0.681 1.372-0.681z"></path>
+            <path d="M2.953 17.226h2.839l6.804 10.889h-1.892c-0.523 0-1.137-0.305-1.372-0.681z"></path>
+        </svg>
+    </a>
+
+        <a href="https://github.com/cr7mufc520"
+           aria-label="https://github.com/cr7mufc520"
+           class="vditor-tooltipped__nw vditor-tooltipped  user__site"
+           target="_blank" rel="noopener nofollow">
+            <svg viewBox="0 0 32 32" width="100%" height="100%">
+                <path d="M16 0.331c-8.836 0-16 7.163-16 16 0 7.069 4.585 13.067 10.942 15.182 0.8 0.148 1.094-0.347 1.094-0.77 0-0.381-0.015-1.642-0.022-2.979-4.452 0.968-5.391-1.888-5.391-1.888-0.728-1.849-1.776-2.341-1.776-2.341-1.452-0.993 0.11-0.973 0.11-0.973 1.606 0.113 2.452 1.649 2.452 1.649 1.427 2.446 3.743 1.739 4.656 1.33 0.143-1.034 0.558-1.74 1.016-2.14-3.554-0.404-7.29-1.777-7.29-7.907 0-1.747 0.625-3.174 1.649-4.295-0.166-0.403-0.714-2.030 0.155-4.234 0 0 1.344-0.43 4.401 1.64 1.276-0.355 2.645-0.532 4.005-0.539 1.359 0.006 2.729 0.184 4.008 0.539 3.054-2.070 4.395-1.64 4.395-1.64 0.871 2.204 0.323 3.831 0.157 4.234 1.026 1.12 1.647 2.548 1.647 4.295 0 6.145-3.743 7.498-7.306 7.895 0.574 0.497 1.085 1.47 1.085 2.963 0 2.141-0.019 3.864-0.019 4.391 0 0.426 0.288 0.925 1.099 0.768 6.354-2.118 10.933-8.113 10.933-15.18 0-8.837-7.164-16-16-16z"></path>
+            </svg>
+        </a>
+
+        <a href="https://weibo.com/cr7mufc520"
+           aria-label="https://weibo.com/cr7mufc520"
+           target="_blank"
+           class="vditor-tooltipped__nw vditor-tooltipped  user__site" rel="noopener nofollow">
+            <svg viewBox="0 0 32 32" width="100%" height="100%">
+                <path d="M13.444 27.064c-5.3 0.525-9.875-1.875-10.219-5.35-0.344-3.481 3.675-6.719 8.969-7.244 5.3-0.525 9.875 1.875 10.212 5.35 0.35 3.481-3.669 6.725-8.963 7.244zM24.038 15.521c-0.45-0.137-0.762-0.225-0.525-0.819 0.512-1.287 0.563-2.394 0.006-3.188-1.038-1.481-3.881-1.406-7.137-0.037 0 0-1.025 0.444-0.762-0.363 0.5-1.613 0.425-2.956-0.356-3.737-1.769-1.769-6.469 0.069-10.5 4.1-3.013 3.006-4.763 6.212-4.763 8.981 0 5.287 6.787 8.506 13.425 8.506 8.7 0 14.494-5.056 14.494-9.069 0-2.431-2.044-3.806-3.881-4.375z"></path>
+                <path d="M29.819 5.833c-2.1-2.331-5.2-3.219-8.063-2.612v0c-0.663 0.144-1.081 0.794-0.938 1.45 0.144 0.662 0.788 1.081 1.45 0.938 2.038-0.431 4.238 0.2 5.731 1.856s1.9 3.913 1.256 5.888v0c-0.206 0.644 0.144 1.331 0.788 1.544 0.644 0.206 1.331-0.144 1.544-0.787v-0.006c0.9-2.762 0.331-5.938-1.769-8.269z"></path>
+                <path d="M26.588 8.752c-1.025-1.138-2.538-1.569-3.925-1.269-0.569 0.119-0.931 0.688-0.813 1.256 0.125 0.569 0.688 0.931 1.25 0.806v0c0.681-0.144 1.419 0.069 1.919 0.619 0.5 0.556 0.637 1.313 0.419 1.975v0c-0.175 0.55 0.125 1.15 0.681 1.331 0.556 0.175 1.15-0.125 1.331-0.681 0.438-1.356 0.163-2.906-0.863-4.037z"></path>
+                <path d="M13.738 20.771c-0.188 0.319-0.594 0.469-0.912 0.337-0.319-0.125-0.412-0.488-0.231-0.794 0.188-0.306 0.581-0.456 0.894-0.337 0.313 0.113 0.425 0.469 0.25 0.794zM12.044 22.933c-0.512 0.819-1.613 1.175-2.438 0.8-0.813-0.369-1.056-1.319-0.544-2.119 0.506-0.794 1.569-1.15 2.388-0.806 0.831 0.356 1.1 1.3 0.594 2.125zM13.969 17.146c-2.519-0.656-5.369 0.6-6.463 2.819-1.119 2.262-0.037 4.781 2.506 5.606 2.638 0.85 5.75-0.456 6.831-2.894 1.069-2.394-0.262-4.85-2.875-5.531z"></path>
+            </svg>
+        </a>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+        <h4>目录</h4>
+<ul class="article__toc">
+        <li class="toc__h3">
+            <a href="#toc_h3_0">课程1-Java高级互联网架构师-SpringBoot入门</a>
+        </li>
+        <li class="toc__h4">
+            <a href="#toc_h4_1">课程主要内容</a>
+        </li>
+        <li class="toc__h4">
+            <a href="#toc_h4_2">介绍</a>
+        </li>
+        <li class="toc__h4">
+            <a href="#toc_h4_3">2.运行</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_4">修改启动banner</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_5">Eclipse的皮肤</a>
+        </li>
+        <li class="toc__h2">
+            <a href="#toc_h2_6">简单使用</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_7">application.properties</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_8">修改tomcat端口</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_9">修改项目路径</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_10">多个入口main方法，打包之后找不到入库类</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_11">HelloWorld</a>
+        </li>
+        <li class="toc__h4">
+            <a href="#toc_h4_12">RestController</a>
+        </li>
+        <li class="toc__h4">
+            <a href="#toc_h4_13">使用thymeleaf模板引擎</a>
+        </li>
+        <li class="toc__h5">
+            <a href="#toc_h5_14">Pom.xml引用</a>
+        </li>
+        <li class="toc__h5">
+            <a href="#toc_h5_15">Controller代码</a>
+        </li>
+        <li class="toc__h5">
+            <a href="#toc_h5_16">模板文件代码</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_17">稍微复杂的restful api应用</a>
+        </li>
+        <li class="toc__h4">
+            <a href="#toc_h4_18">UserRestfulController</a>
+        </li>
+        <li class="toc__h4">
+            <a href="#toc_h4_19">User</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_20">注入Service</a>
+        </li>
+        <li class="toc__h4">
+            <a href="#toc_h4_21">UserRestfulController</a>
+        </li>
+        <li class="toc__h4">
+            <a href="#toc_h4_22">UserService</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_23">前端模板显示</a>
+        </li>
+        <li class="toc__h2">
+            <a href="#toc_h2_24">常见问题</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_25">Pom.xml</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_26">Pom.xml第一行报错</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_27">缺少或包错误</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_28">找不到主类</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_29">找不到jdk</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_30">启动后自动停止</a>
+        </li>
+</ul>    </div>
+</div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="footer">
+<div class="left copyright">
+    <span style="color: gray;">&copy; 2026</span> <a href="https://vx642620018.github.io">vx1039576978 的个人博客</a> 
+</div>
+<div class="right goTop">
+    <span onclick="Util.goTop();">顶部</span>
+</div>
+<script>
+  var Label = {
+    speech: true,
+    servePath: "https://vx642620018.github.io",
+    staticServePath: "https://vx642620018.github.io",
+    luteAvailable: false,
+    hljsStyle: 'github',
+    langLabel: "zh_CN",
+    version: "4.4.0",
+    staticSite: true,
+    showCodeBlockLn: false,
+    articleId: "1627820105077",
+  }
+</script>
+<script type="text/javascript" src="https://vx642620018.github.io/js/common.min.js?1771161338301" charset="utf-8"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        Util.setTopBar()
+
+        // set selected navi
+        $("#header-navi li").each(function (i) {
+            if (i < $("#header-navi li").length - 1) {
+                var $it = $(this),
+                locationURL = window.location.pathname + window.location.search;
+                if (i === 0 && (locationURL === "/")) {
+                    $it.addClass("selected");
+                    return;
+                }
+                if (locationURL.indexOf($it.find("a").attr("href")) > -1 && i !== 0) {
+                    $it.addClass("selected");
+                }
+            }
+        });
+    });
+</script>
+
+                    </div>
+                </div>
+            </div>
+<script type="text/javascript">
+    Util.addScript('https://vx642620018.github.io/js/page.min.js?1771161338301', 'soloPageScript')
+    var page = new Page({
+        "commentContentCannotEmptyLabel": "评论不能为空",
+        "oId": "1627820105077",
+        "blogHost": "https://vx642620018.github.io",
+        "randomArticles1Label": "随机阅读：",
+        "externalRelevantArticles1Label": "站外相关阅读："
+    });
+    $(document).ready(function () {
+        page.load();
+            page.tips.externalRelevantArticlesDisplayCount = "0";
+            page.loadRandomArticles();
+            page.loadRelevantArticles('1627820105077', '<h4>相关阅读：</h4>');
+    });
+</script>
+        </div>
+    </body>
+</html>
+
+<!-- Generated by Latke (https://github.com/88250/latke) in 17ms, 2026/02/15 21:16:03 -->

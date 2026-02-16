@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/><meta name="theme-color" content="#3b3e43"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="format-detection" content="telephone=no"/><title>图灵学院java架构师全套svip课程2345期--Linux管道通信的原理--百度网盘下载 - vx1039576978 的个人博客</title><meta name="description" content="【微信642620018，获取图灵架构师svip课程2345期全套课程】 处于安全的考虑，不同进程之间的内存空间是相互隔离的，也就是说 进程A 是不能访问 进程B 的内存空间，反之亦然。如果不同进程间能够相互访问和修改对方的内存，那么当前进程的内存就有可能被其他进程非法修改，从而导致安全隐患。 不同的进程就像是大海上孤立的岛屿，它们之间不能直接相互通信，如下图所示： 但某些场景下，不同进程间需要相互通信，比如：进程A** 负责处理用户的请求，而 进程B 负责保存处理后的数据。那么当 进程A 处理完请求后，就需要把处理后的数据提交给 进程B 进行存储。此时，进程A 就需要与 进程B 进行通信。如下图所示：** 由于不同进程间是相互隔离的，所以必须借助内核来作为桥梁来进行相互通信，内核相当于岛屿之间的轮船，如下图所示： 内核提供多种进程间通信的方式，如：共享内存，信号，消息队列** 和 管道（pipe） 等。本文主要介绍 管道 的原理与实现。** 一、管道的使用 管道** 一般用于父子进程之间相互通信，一般的用法如下：** 父进程使用 pipe 系统调用创建一个管道。 然后父进程使用 fo...."/><meta property="og:description" content="【微信642620018，获取图灵架构师svip课程2345期全套课程】 处于安全的考虑，不同进程之间的内存空间是相互隔离的，也就是说 进程A 是不能访问 进程B 的内存空间，反之亦然。如果不同进程间能够相互访问和修改对方的内存，那么当前进程的内存就有可能被其他进程非法修改，从而导致安全隐患。 不同的进程就像是大海上孤立的岛屿，它们之间不能直接相互通信，如下图所示： 但某些场景下，不同进程间需要相互通信，比如：进程A** 负责处理用户的请求，而 进程B 负责保存处理后的数据。那么当 进程A 处理完请求后，就需要把处理后的数据提交给 进程B 进行存储。此时，进程A 就需要与 进程B 进行通信。如下图所示：** 由于不同进程间是相互隔离的，所以必须借助内核来作为桥梁来进行相互通信，内核相当于岛屿之间的轮船，如下图所示： 内核提供多种进程间通信的方式，如：共享内存，信号，消息队列** 和 管道（pipe） 等。本文主要介绍 管道 的原理与实现。** 一、管道的使用 管道** 一般用于父子进程之间相互通信，一般的用法如下：** 父进程使用 pipe 系统调用创建一个管道。 然后父进程使用 fo...."/>    <meta name="keywords" content="Solo,Java,博客,开源"/><link rel="dns-prefetch" href="https://vx642620018.github.io"/><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"/><link rel="preconnect" href="https://vx642620018.github.io"><link rel="icon" type="image/png" href="https://b3log.org/images/brand/solo-128.png"/><link rel="apple-touch-icon" href="https://b3log.org/images/brand/solo-128.png"><link rel="shortcut icon" type="image/x-icon" href="https://b3log.org/images/brand/solo-128.png"><meta name="copyright" content="B3log"/><meta http-equiv="Window-target" content="_top"/><meta property="og:locale" content="zh_CN"/><meta property="og:title" content="图灵学院java架构师全套svip课程2345期--Linux管道通信的原理--百度网盘下载 - vx1039576978 的个人博客"/><meta property="og:site_name" content="vx1039576978 的个人博客"/><meta property="og:url"      content="https://vx642620018.github.io/articles/2023/04/16/1681625751959.html?"/><meta property="og:image" content="https://b3log.org/images/brand/solo-128.png"/><link rel="search" type="application/opensearchdescription+xml" title="图灵学院java架构师全套svip课程2345期--Linux管道通信的原理--百度网盘下载 - vx1039576978 的个人博客" href="/opensearch.xml"><link href="https://vx642620018.github.io/rss.xml" title="RSS" type="application/rss+xml" rel="alternate"/><link rel="manifest" href="https://vx642620018.github.io/manifest.json">        <link rel="canonical" href="https://vx642620018.github.io/articles/2023/04/16/1681625751959.html">            <link rel="stylesheet"
+                  href="https://vx642620018.github.io/skins/i-nove/css/base.css?1771161338301"/>
+            <link rel="prev" title="2023马士兵mca高级架构师全套-百度网盘下载" href="https://vx642620018.github.io/articles/2023/04/11/1681188684109.html">
+            <link rel="next" title="2022马士兵mca架构师百度网盘下载--为什么不建议你用去 “! = null” 做判空？" href="https://vx642620018.github.io/articles/2023/04/16/1681625752456.html">
+    <script src="https://vx642620018.github.io/js/lib/vditor/dist/js/icons/ant.js?v=3.9.7" async="" id="vditorIconScript"></script>    </head>
+    <body>
+        
+        <div class="bg">
+            <div class="wrapper">
+                <div class="content">
+<div class="header">
+    <h1 class="title">
+        <a href="https://vx642620018.github.io" id="logoTitle">
+            vx1039576978 的个人博客
+        </a>
+    </h1>
+    <span class="sub-title">记录精彩的程序人生</span>
+</div>
+<div id="header-navi">
+    <div class="left">
+        <ul>
+            <li>
+                <a rel="nofollow" class="home" href="https://vx642620018.github.io"></a>
+            </li>
+            <li>
+                <a href="https://vx642620018.github.io/tags.html">标签墙</a>
+            </li>
+            <li>
+                <a rel="alternate" href="https://vx642620018.github.io/rss.xml">
+                    RSS
+                    <img src="https://vx642620018.github.io/images/feed.png" alt="RSS"/>
+                </a>
+            </li>
+            <li>
+                <a class="lastNavi" href="javascript:void(0);"></a>
+            </li>
+        </ul>
+    </div>
+    <div class="right" id="statistic">
+        <span>
+            浏览数：
+            <span class='error-msg'>
+                <span data-uvstaturl="https://vx642620018.github.io">0</span>
+            </span>
+            &nbsp;&nbsp;
+        </span>
+        <span>
+            文章总数：
+            <span class='error-msg'>
+                161
+            </span>
+            &nbsp;&nbsp;
+        </span>
+    </div>
+    <div class="clear"></div>
+</div>
+                    <div class="body">
+                        <div class="left main">
+                            <div class="article">
+                                <h2 class="article-title">
+                                    <a class="no-underline" href="https://vx642620018.github.io/articles/2023/04/16/1681625751959.html">图灵学院java架构师全套svip课程2345期--Linux管道通信的原理--百度网盘下载</a>
+                                </h2>
+                                <div class="margin5">
+                                    <div class="article-date left">
+                                        <a rel="nofollow" class="left" title="vx1039576978" href="https://vx642620018.github.io/authors/1731863538096">
+                                            <span class="authorIcon"></span>
+                                            vx1039576978
+                                        </a>
+                                        <span class="dateIcon left"></span>
+                                        2023-04-16 14:15:51
+                                    </div>
+                                    <div class="right">
+                                        <a rel="nofollow" href="https://vx642620018.github.io/articles/2023/04/16/1681625751959.html#b3logsolocomments" class="left">
+                                            <span class="left articles-commentIcon" title="评论"></span>
+                                            <span data-uvstatcmt="1681625751146">0</span>
+                                        </a>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="vditor-reset vditor-reset--article">
+                                    <p>【微信642620018，获取图灵架构师svip课程2345期全套课程】</p>
+<p><strong>处于安全的考虑，不同进程之间的内存空间是相互隔离的，也就是说 <strong><code>进程A</code></strong> 是不能访问 <strong><code>进程B</code></strong> 的内存空间，反之亦然。如果不同进程间能够相互访问和修改对方的内存，那么当前进程的内存就有可能被其他进程非法修改，从而导致安全隐患。</strong></p>
+<p><strong>不同的进程就像是大海上孤立的岛屿，它们之间不能直接相互通信，如下图所示：</strong></p>
+<p><img src="https://b3logfile.com/file/2021/11/solo-fetchupload-1265026126396154445-a0243eb6.png?imageView2/2/w/1280/format/jpg/interlace/1/q/100" alt="image-20211111232146953"></p>
+<p><strong>但某些场景下，不同进程间需要相互通信，比如：</strong><code>进程A</code>** 负责处理用户的请求，而 <strong><code>进程B</code></strong> 负责保存处理后的数据。那么当 <strong><code>进程A</code></strong> 处理完请求后，就需要把处理后的数据提交给 <strong><code>进程B</code></strong> 进行存储。此时，<strong><code>进程A</code></strong> 就需要与 <strong><code>进程B</code></strong> 进行通信。如下图所示：**</p>
+<p><img src="https://b3logfile.com/file/2021/11/solo-fetchupload-2745417825599496678-c0d763d7.png?imageView2/2/w/1280/format/jpg/interlace/1/q/100" alt="image-20211111232207188"></p>
+<p><strong>由于不同进程间是相互隔离的，所以必须借助内核来作为桥梁来进行相互通信，内核相当于岛屿之间的轮船，如下图所示：</strong></p>
+<p><img src="https://b3logfile.com/file/2021/11/solo-fetchupload-665159366189863593-f53e1092.png?imageView2/2/w/1280/format/jpg/interlace/1/q/100" alt="image-20211111232226530"></p>
+<p><strong>内核提供多种进程间通信的方式，如：</strong><code>共享内存</code><strong>，</strong><code>信号</code><strong>，</strong><code>消息队列</code>** 和 <strong><code>管道（pipe）</code></strong> 等。本文主要介绍 <strong><code>管道</code></strong> 的原理与实现。**</p>
+<h2 id="toc_h2_0"><strong>一、管道的使用</strong></h2>
+<p><code>管道</code>** 一般用于父子进程之间相互通信，一般的用法如下：**</p>
+<ul>
+<li><strong>父进程使用 <strong><code>pipe</code></strong> 系统调用创建一个管道。</strong></li>
+<li><strong>然后父进程使用 <strong><code>fork</code></strong> 系统调用创建一个子进程。</strong></li>
+<li><strong>由于子进程会继承父进程打开的文件句柄，所以父子进程可以通过新创建的管道进行通信。</strong></li>
+</ul>
+<p><strong>其原理如下图所示：</strong></p>
+<p><img src="https://b3logfile.com/file/2021/11/solo-fetchupload-3975950704792344182-9455ce02.png?imageView2/2/w/1280/format/jpg/interlace/1/q/100" alt="image-20211111232239929"></p>
+<p><strong>由于管道分为读端和写端，所以需要两个文件描述符来管理管道：</strong><code>fd[0]</code>** 为读端，<strong><code>fd[1]</code></strong> 为写端。**</p>
+<p><strong>下面代码介绍了怎么使用 <strong><code>pipe</code></strong> 系统调用来创建一个管道：</strong></p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+
+int main()
+{
+ &nbsp; &nbsp;int ret = -1;
+ &nbsp; &nbsp;int fd[2]; &nbsp;// 用于管理管道的文件描述符
+ &nbsp; &nbsp;pid_t pid;
+ &nbsp; &nbsp;char buf[512] = {0};
+ &nbsp; &nbsp;char *msg = "hello world";
+
+ &nbsp; &nbsp;// 创建一个管理
+ &nbsp; &nbsp;ret = pipe(fd);
+ &nbsp; &nbsp;if (-1 == ret) {
+ &nbsp; &nbsp; &nbsp; &nbsp;printf("failed to create pipe\n");
+ &nbsp; &nbsp; &nbsp; &nbsp;return -1;
+ &nbsp;  }
+ &nbsp;
+ &nbsp; &nbsp;pid = fork(); &nbsp; &nbsp; // 创建子进程
+
+ &nbsp; &nbsp;if (0 == pid) { &nbsp; // 子进程
+ &nbsp; &nbsp; &nbsp; &nbsp;close(fd[0]); // 关闭管道的读端
+ &nbsp; &nbsp; &nbsp; &nbsp;ret = write(fd[1], msg, strlen(msg)); // 向管道写端写入数据
+ &nbsp; &nbsp; &nbsp; &nbsp;exit(0);
+ &nbsp;  } else { &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// 父进程
+ &nbsp; &nbsp; &nbsp; &nbsp;close(fd[1]); // 关闭管道的写端
+ &nbsp; &nbsp; &nbsp; &nbsp;ret = read(fd[0], buf, sizeof(buf)); // 从管道的读端读取数据
+ &nbsp; &nbsp; &nbsp; &nbsp;printf("parent read %d bytes data: %s\n", ret, buf);
+ &nbsp;  }
+
+ &nbsp; &nbsp;return 0;
+}
+</code></pre>
+<p><strong>编译代码：</strong></p>
+<pre><code>[root@localhost pipe]# gcc -g pipe.c -o pipe
+</code></pre>
+<p><strong>运行代码，输出结果如下：</strong></p>
+<pre><code>[root@localhost pipe]# ./pipe
+parent read 11 bytes data: hello world
+</code></pre>
+<h2 id="toc_h2_1"><strong>二、管道的实现</strong></h2>
+<p><strong>每个进程的用户空间都是独立的，但内核空间却是共用的。所以，进程间通信必须由内核提供服务。前面介绍了 <strong><code>管道(pipe)</code></strong> 的使用，接下来将会介绍管道在内核中的实现方式。</strong></p>
+<blockquote>
+<p><strong>本文使用 Linux-2.6.23 内核作为分析对象。</strong></p>
+</blockquote>
+<h3 id="toc_h3_2"><strong>1. 环形缓冲区（Ring Buffer）</strong></h3>
+<p><strong>在内核中，</strong><code>管道</code>** 使用了环形缓冲区来存储数据。环形缓冲区的原理是：把一个缓冲区当成是首尾相连的环，其中通过读指针和写指针来记录读操作和写操作位置。如下图所示：**</p>
+<p><img src="https://b3logfile.com/file/2021/11/solo-fetchupload-6394253401741612401-d6386485.png?imageView2/2/w/1280/format/jpg/interlace/1/q/100" alt="image-20211111232255690"></p>
+<p><strong>在 Linux 内核中，使用了 16 个内存页作为环形缓冲区，所以这个环形缓冲区的大小为 64KB（16 * 4KB）。</strong></p>
+<p><strong>当向管道写数据时，从写指针指向的位置开始写入，并且将写指针向前移动。而从管道读取数据时，从读指针开始读入，并且将读指针向前移动。当对没有数据可读的管道进行读操作，将会阻塞当前进程。而对没有空闲空间的管道进行写操作，也会阻塞当前进程。</strong></p>
+<blockquote>
+<p><strong>注意：可以将管道文件描述符设置为非阻塞，这样对管道进行读写操作时，就不会阻塞当前进程。</strong></p>
+</blockquote>
+<h3 id="toc_h3_3"><strong>2. 管道对象</strong></h3>
+<p><strong>在 Linux 内核中，管道使用 <strong><code>pipe_inode_info</code></strong> 对象来进行管理。我们先来看看 <strong><code>pipe_inode_info</code></strong> 对象的定义，如下所示：</strong></p>
+<pre><code>struct pipe_inode_info {
+ &nbsp; &nbsp;wait_queue_head_t wait;
+ &nbsp; &nbsp;unsigned int nrbufs,
+ &nbsp; &nbsp;unsigned int curbuf;
+ &nbsp;  ...
+ &nbsp; &nbsp;unsigned int readers;
+ &nbsp; &nbsp;unsigned int writers;
+ &nbsp; &nbsp;unsigned int waiting_writers;
+ &nbsp;  ...
+ &nbsp; &nbsp;struct inode *inode;
+ &nbsp; &nbsp;struct pipe_buffer bufs[16];
+};
+</code></pre>
+<p><strong>下面介绍一下 <strong><code>pipe_inode_info</code></strong> 对象各个字段的作用：</strong></p>
+<ul>
+<li><code>wait</code><strong>：等待队列，用于存储正在等待管道可读或者可写的进程。</strong></li>
+<li><code>bufs</code><strong>：环形缓冲区，由 16 个 <strong><code>pipe_buffer</code></strong> 对象组成，每个 <strong><code>pipe_buffer</code></strong> 对象拥有一个内存页 ，后面会介绍。</strong></li>
+<li><code>nrbufs</code><strong>：表示未读数据已经占用了环形缓冲区的多少个内存页。</strong></li>
+<li><code>curbuf</code><strong>：表示当前正在读取环形缓冲区的哪个内存页中的数据。</strong></li>
+<li><code>readers</code><strong>：表示正在读取管道的进程数。</strong></li>
+<li><code>writers</code><strong>：表示正在写入管道的进程数。</strong></li>
+<li><code>waiting_writers</code><strong>：表示等待管道可写的进程数。</strong></li>
+<li><code>inode</code><strong>：与管道关联的 <strong><code>inode</code></strong> 对象。</strong></li>
+</ul>
+<p><strong>由于环形缓冲区是由 16 个 <strong><code>pipe_buffer</code></strong> 对象组成，所以下面我们来看看 <strong><code>pipe_buffer</code></strong> 对象的定义：</strong></p>
+<pre><code>struct pipe_buffer {
+ &nbsp; &nbsp;struct page *page;
+ &nbsp; &nbsp;unsigned int offset;
+ &nbsp; &nbsp;unsigned int len;
+ &nbsp;  ...
+};
+</code></pre>
+<p><strong>下面介绍一下 <strong><code>pipe_buffer</code></strong> 对象各个字段的作用：</strong></p>
+<ul>
+<li><code>page</code><strong>：指向 <strong><code>pipe_buffer</code></strong> 对象占用的内存页。</strong></li>
+<li><code>offset</code><strong>：如果进程正在读取当前内存页的数据，那么 <strong><code>offset</code></strong> 指向正在读取当前内存页的偏移量。</strong></li>
+<li><code>len</code><strong>：表示当前内存页拥有未读数据的长度。</strong></li>
+</ul>
+<p><strong>下图展示了 <strong><code>pipe_inode_info</code></strong> 对象与 <strong><code>pipe_buffer</code></strong> 对象的关系：</strong></p>
+<p><img src="https://b3logfile.com/file/2021/11/solo-fetchupload-3342281320532782927-1690f83a.png?imageView2/2/w/1280/format/jpg/interlace/1/q/100" alt="image-20211111232311149"></p>
+<p><strong>管道的环形缓冲区实现方式与经典的环形缓冲区实现方式有点区别，经典的环形缓冲区一般先申请一块地址连续的内存块，然后通过读指针与写指针来对读操作与写操作进行定位。</strong></p>
+<p><strong>但为了减少对内存的使用，内核不会在创建管道时就申请 64K 的内存块，而是在进程向管道写入数据时，按需来申请内存。</strong></p>
+<p><strong>那么当进程从管道读取数据时，内核怎么处理呢？下面我们来看看管道读操作的实现方式。</strong></p>
+<h3 id="toc_h3_4"><strong>3. 读操作</strong></h3>
+<p><strong>从 <strong><code>经典的环形缓冲区</code></strong> 中读取数据时，首先通过读指针来定位到读取数据的起始地址，然后判断环形缓冲区中是否有数据可读，如果有就从环形缓冲区中读取数据到用户空间的缓冲区中。如下图所示：</strong></p>
+<p><img src="https://b3logfile.com/file/2021/11/solo-fetchupload-3035184969774930977-51eaf37a.png?imageView2/2/w/1280/format/jpg/interlace/1/q/100" alt="image-20211111232326396"></p>
+<p><strong>而 <strong><code>管道的环形缓冲区</code></strong> 与 <strong><code>经典的环形缓冲区</code></strong> 实现稍有不同，</strong><code>管道的环形缓冲区</code>** 其读指针是由 <strong><code>pipe_inode_info</code></strong> 对象的 <strong><code>curbuf</code></strong> 字段与 <strong><code>pipe_buffer</code></strong> 对象的 <strong><code>offset</code></strong> 字段组合而成：**</p>
+<ul>
+<li><code>pipe_inode_info</code>** 对象的 <strong><code>curbuf</code></strong> 字段表示读操作要从 <strong><code>bufs</code></strong> 数组的哪个 <strong><code>pipe_buffer</code></strong> 中读取数据。**</li>
+<li><code>pipe_buffer</code>** 对象的 <strong><code>offset</code></strong> 字段表示读操作要从内存页的哪个位置开始读取数据。**</li>
+</ul>
+<p><strong>读取数据的过程如下图所示：</strong></p>
+<p><img src="https://b3logfile.com/file/2021/11/solo-fetchupload-5359279592553062116-b958fe74.png?imageView2/2/w/1280/format/jpg/interlace/1/q/100" alt="image-20211111232416832"></p>
+<p><strong>从缓冲区中读取到 n 个字节的数据后，会相应移动读指针 n 个字节的位置（也就是增加 <strong><code>pipe_buffer</code></strong> 对象的 <strong><code>offset</code></strong> 字段），并且减少 n 个字节的可读数据长度（也就是减少 <strong><code>pipe_buffer</code></strong> 对象的 <strong><code>len</code></strong> 字段）。</strong></p>
+<p><strong>当 <strong><code>pipe_buffer</code></strong> 对象的 <strong><code>len</code></strong> 字段变为 0 时，表示当前 <strong><code>pipe_buffer</code></strong> 没有可读数据，那么将会对 <strong><code>pipe_inode_info</code></strong> 对象的 <strong><code>curbuf</code></strong> 字段移动一个位置，并且其 <strong><code>nrbufs</code></strong> 字段进行减一操作。</strong></p>
+<p><strong>我们来看看管道读操作的代码实现，读操作由 <strong><code>pipe_read</code></strong> 函数完成。为了突出重点，我们只列出关键代码，如下所示：</strong></p>
+<pre><code>static ssize_t
+pipe_read(struct kiocb *iocb, const struct iovec *_iov, unsigned long nr_segs,
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;loff_t pos)
+{
+ &nbsp;  ...
+ &nbsp; &nbsp;struct pipe_inode_info *pipe;
+
+ &nbsp; &nbsp;// 1. 获取管道对象
+ &nbsp; &nbsp;pipe = inode-&gt;i_pipe;
+
+ &nbsp; &nbsp;for (;;) {
+ &nbsp; &nbsp; &nbsp; &nbsp;// 2. 获取管道未读数据占有多少个内存页
+ &nbsp; &nbsp; &nbsp; &nbsp;int bufs = pipe-&gt;nrbufs;
+
+ &nbsp; &nbsp; &nbsp; &nbsp;if (bufs) {
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// 3. 获取读操作应该从环形缓冲区的哪个内存页处读取数据
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;int curbuf = pipe-&gt;curbuf; &nbsp;
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;struct pipe_buffer *buf = pipe-&gt;bufs + curbuf;
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  ...
+
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* 4. 通过 pipe_buffer 的 offset 字段获取真正的读指针,
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * &nbsp;  并且从管道中读取数据到用户缓冲区.
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; */
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;error = pipe_iov_copy_to_user(iov, addr + buf-&gt;offset, chars, atomic);
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  ...
+
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ret += chars;
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;buf-&gt;offset += chars; // 增加 pipe_buffer 对象的 offset 字段的值
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;buf-&gt;len -= chars; &nbsp; &nbsp;// 减少 pipe_buffer 对象的 len 字段的值
+
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* 5. 如果当前内存页的数据已经被读取完毕 */
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (!buf-&gt;len) {
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  ...
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;curbuf = (curbuf + 1) &amp; (PIPE_BUFFERS - 1);
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;pipe-&gt;curbuf = curbuf; // 移动 pipe_inode_info 对象的 curbuf 指针
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;pipe-&gt;nrbufs = --bufs; // 减少 pipe_inode_info 对象的 nrbufs 字段
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;do_wakeup = 1;
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  }
+
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;total_len -= chars;
+
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// 6. 如果读取到用户期望的数据长度, 退出循环
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (!total_len)
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;break;
+ &nbsp; &nbsp; &nbsp;  }
+ &nbsp; &nbsp; &nbsp;  ...
+ &nbsp;  }
+
+ &nbsp;  ...
+ &nbsp; &nbsp;return ret;
+}
+</code></pre>
+<p><strong>上面代码总结来说分为以下步骤：</strong></p>
+<ul>
+<li><strong>通过文件 <strong><code>inode</code></strong> 对象来获取到管道的 <strong><code>pipe_inode_info</code></strong> 对象。</strong></li>
+<li><strong>通过 <strong><code>pipe_inode_info</code></strong> 对象的 <strong><code>nrbufs</code></strong> 字段获取管道未读数据占有多少个内存页。</strong></li>
+<li><strong>通过 <strong><code>pipe_inode_info</code></strong> 对象的 <strong><code>curbuf</code></strong> 字段获取读操作应该从环形缓冲区的哪个内存页处读取数据。</strong></li>
+<li><strong>通过 <strong><code>pipe_buffer</code></strong> 对象的 <strong><code>offset</code></strong> 字段获取真正的读指针， 并且从管道中读取数据到用户缓冲区。</strong></li>
+<li><strong>如果当前内存页的数据已经被读取完毕，那么移动 <strong><code>pipe_inode_info</code></strong> 对象的 <strong><code>curbuf</code></strong> 指针，并且减少其 <strong><code>nrbufs</code></strong> 字段的值。</strong></li>
+<li><strong>如果读取到用户期望的数据长度，退出循环。</strong></li>
+</ul>
+<h3 id="toc_h3_5"><strong>4. 写操作</strong></h3>
+<p><strong>分析完管道读操作的实现后，接下来，我们分析一下管道写操作的实现。</strong></p>
+<p><code>经典的环形缓冲区</code>** 写入数据时，首先通过写指针进行定位要写入的内存地址，然后判断环形缓冲区的空间是否足够，足够就把数据写入到环形缓冲区中。如下图所示：**</p>
+<p><img src="https://b3logfile.com/file/2021/11/solo-fetchupload-3367438998718924276-4442da2d.png?imageView2/2/w/1280/format/jpg/interlace/1/q/100" alt="image-20211111232435996"></p>
+<p><strong>但 <strong><code>管道的环形缓冲区</code></strong> 并没有保存 <strong><code>写指针</code></strong>，而是通过 <strong><code>读指针</code></strong> 计算出来。那么怎么通过读指针计算出写指针呢？</strong></p>
+<p><strong>其实很简单，就是：</strong></p>
+<blockquote>
+<p><strong>写指针 = 读指针 + 未读数据长度</strong></p>
+</blockquote>
+<p><strong>下面我们来看看，向管道写入 200 字节数据的过程示意图，如下所示：</strong></p>
+<p><strong>如上图所示，向管道写入数据时：</strong></p>
+<p><img src="https://b3logfile.com/file/2021/11/solo-fetchupload-8144988434013136289-014df7ac.png?imageView2/2/w/1280/format/jpg/interlace/1/q/100" alt="image-20211111232448469"></p>
+<ul>
+<li><strong>首先通过 <strong><code>pipe_inode_info</code></strong> 的 <strong><code>curbuf</code></strong> 字段和 <strong><code>nrbufs</code></strong> 字段来定位到，应该向哪个 <strong><code>pipe_buffer</code></strong> 写入数据。</strong></li>
+<li><strong>然后再通过 <strong><code>pipe_buffer</code></strong> 对象的 <strong><code>offset</code></strong> 字段和 <strong><code>len</code></strong> 字段来定位到，应该写入到内存页的哪个位置。</strong></li>
+</ul>
+<p><strong>下面我们通过源码来分析，写操作是怎么实现的，代码如下（为了特出重点，代码有所删减）：</strong></p>
+<pre><code>static ssize_t
+pipe_write(struct kiocb *iocb, const struct iovec *_iov, unsigned long nr_segs,
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; loff_t ppos)
+{
+ &nbsp;  ...
+ &nbsp; &nbsp;struct pipe_inode_info *pipe;
+ &nbsp;  ...
+ &nbsp; &nbsp;pipe = inode-&gt;i_pipe;
+ &nbsp;  ...
+ &nbsp; &nbsp;chars = total_len &amp; (PAGE_SIZE - 1); /* size of the last buffer */
+
+ &nbsp; &nbsp;// 1. 如果最后写入的 pipe_buffer 还有空闲的空间
+ &nbsp; &nbsp;if (pipe-&gt;nrbufs &amp;&amp; chars != 0) {
+ &nbsp; &nbsp; &nbsp; &nbsp;// 获取写入数据的位置
+ &nbsp; &nbsp; &nbsp; &nbsp;int lastbuf = (pipe-&gt;curbuf + pipe-&gt;nrbufs - 1) &amp; (PIPE_BUFFERS-1);
+ &nbsp; &nbsp; &nbsp; &nbsp;struct pipe_buffer *buf = pipe-&gt;bufs + lastbuf;
+ &nbsp; &nbsp; &nbsp; &nbsp;const struct pipe_buf_operations *ops = buf-&gt;ops;
+ &nbsp; &nbsp; &nbsp; &nbsp;int offset = buf-&gt;offset + buf-&gt;len;
+
+ &nbsp; &nbsp; &nbsp; &nbsp;if (ops-&gt;can_merge &amp;&amp; offset + chars &lt;= PAGE_SIZE) {
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  ...
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;error = pipe_iov_copy_from_user(offset + addr, iov, chars, atomic);
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  ...
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;buf-&gt;len += chars;
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;total_len -= chars;
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ret = chars;
+
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// 如果要写入的数据已经全部写入成功, 退出循环
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (!total_len)
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;goto out;
+ &nbsp; &nbsp; &nbsp;  }
+ &nbsp;  }
+
+ &nbsp; &nbsp;// 2. 如果最后写入的 pipe_buffer 空闲空间不足, 那么申请一个新的内存页来存储数据
+ &nbsp; &nbsp;for (;;) {
+ &nbsp; &nbsp; &nbsp; &nbsp;int bufs;
+ &nbsp; &nbsp; &nbsp;  ...
+ &nbsp; &nbsp; &nbsp; &nbsp;bufs = pipe-&gt;nrbufs;
+
+ &nbsp; &nbsp; &nbsp; &nbsp;if (bufs &lt; PIPE_BUFFERS) {
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;int newbuf = (pipe-&gt;curbuf + bufs) &amp; (PIPE_BUFFERS-1);
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;struct pipe_buffer *buf = pipe-&gt;bufs + newbuf;
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  ...
+
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// 申请一个新的内存页
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (!page) {
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;page = alloc_page(GFP_HIGHUSER);
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  ...
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  }
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  ...
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;error = pipe_iov_copy_from_user(src, iov, chars, atomic);
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  ...
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ret += chars;
+
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;buf-&gt;page = page;
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;buf-&gt;ops = &amp;anon_pipe_buf_ops;
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;buf-&gt;offset = 0;
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;buf-&gt;len = chars;
+
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;pipe-&gt;nrbufs = ++bufs;
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;pipe-&gt;tmp_page = NULL;
+
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// 如果要写入的数据已经全部写入成功, 退出循环
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;total_len -= chars;
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (!total_len)
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;break;
+ &nbsp; &nbsp; &nbsp;  }
+ &nbsp; &nbsp; &nbsp;  ...
+ &nbsp;  }
+
+out:
+ &nbsp;  ...
+ &nbsp; &nbsp;return ret;
+}
+</code></pre>
+<p><strong>上面代码有点长，但是逻辑却很简单，主要进行如下操作：</strong></p>
+<ul>
+<li><strong>如果上次写操作写入的 <strong><code>pipe_buffer</code></strong> 还有空闲的空间，那么就将数据写入到此 <strong><code>pipe_buffer</code></strong> 中，并且增加其 <strong><code>len</code></strong> 字段的值。</strong></li>
+<li><strong>如果上次写操作写入的 <strong><code>pipe_buffer</code></strong> 没有足够的空闲空间，那么就新申请一个内存页，并且把数据保存到新的内存页中，并且增加 <strong><code>pipe_inode_info</code></strong> 的 <strong><code>nrbufs</code></strong> 字段的值。</strong></li>
+<li><strong>如果写入的数据已经全部写入成功，那么就退出写操作。</strong></li>
+</ul>
+<h2 id="toc_h2_6"><strong>三、思考一下</strong></h2>
+<p><strong>管道读写操作的实现已经分析完毕，现在我们来思考一下以下问题。</strong></p>
+<h3 id="toc_h3_7"><strong>1. 为什么父子进程可以通过管道来通信？</strong></h3>
+<p><strong>这是因为父子进程通过 <strong><code>pipe</code></strong> 系统调用打开的管道，在内核空间中指向同一个管道对象（</strong><code>pipe_inode_info</code><strong>）。所以父子进程共享着同一个管道对象，那么就可以通过这个共享的管道对象进行通信。</strong></p>
+<h3 id="toc_h3_8"><strong>2. 为什么内核要使用 16 个内存页进行数据存储？</strong></h3>
+<p><strong>这是为了减少内存使用。</strong></p>
+<p><strong>因为使用 <strong><code>pipe</code></strong> 系统调用打开管道时，并没有立刻申请内存页，而是当有进程向管道写入数据时，才会按需申请内存页。当内存页的数据被读取完后，内核会将此内存页回收，来减少管道对内存的使用。</strong></p>
+                                    <div class="marginTop12">
+                                        <hr>
+
+标题：图灵学院java架构师全套svip课程2345期--Linux管道通信的原理--百度网盘下载<br>
+作者：<a href="https://vx642620018.github.io" target="_blank">vx1039576978</a><br>
+地址：<a href="https://vx642620018.github.io/articles/2023/04/16/1681625751959.html" target="_blank">https://vx642620018.github.io/articles/2023/04/16/1681625751959.html</a><br>
+
+<!-- 签名档内可使用 HTML、JavaScript -->
+<br>
+                                    </div>
+                                </div>
+                                <div class="margin5">
+                                    <a rel="nofollow" class="left" href="https://vx642620018.github.io/articles/2023/04/16/1681625751959.html">
+                                        <span title="浏览" class="left article-browserIcon"></span>
+                                        <span data-uvstaturl="https://vx642620018.github.io/articles/2023/04/16/1681625751959.html">0</span>
+                                    </a>
+                                    <div class="left">
+                                        <span title="标签" class="tagsIcon"></span>
+                                        <span>
+                                            <a rel="tag" href="https://vx642620018.github.io/tags/Note">
+                                                Note</a>
+                                        </span>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div>
+                                    <div class="right">
+                                        <a href="https://vx642620018.github.io/articles/2023/04/16/1681625752456.html">新一篇：2022马士兵mca架构师百度网盘下载--为什么不建议你用去 “! = null” 做判空？</a>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="right">
+                                        <a href="https://vx642620018.github.io/articles/2023/04/11/1681188684109.html">旧一篇：2023马士兵mca高级架构师全套-百度网盘下载</a>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div id="relevantArticles" class="article-relative"></div>
+                                <div id="randomArticles" class="article-relative"></div>
+                                <div id="externalRelevantArticles" class="article-relative"></div>
+                            </div>
+                                <div id="gitalk-container" class="comments" style="padding-top: 15px"></div>
+                                <div id="b3logsolocomments"></div>
+                                <div id="vcomment" class="comments"
+                                 style="padding-top: 15px"
+                                 data-name="vx1039576978" data-postId="1681625751146"></div>
+                        </div>
+                        <div class="right">
+<div id="sideNavi" class="side-navi">
+    <div class="item">
+        <h4>公告</h4>
+        <div class="marginLeft12 marginTop12">
+            Open Source, Open Mind, <br/>Open Sight, Open Future!
+
+<!-- 公告栏可使用 HTML、JavaScript，比如可以在此加入第三方统计 js -->
+        </div>
+        <div class="marginTop12 marginLeft12">
+    <a href="https://ld246.com/member/vx1039576978"
+       aria-label="https://ld246.com/member/vx1039576978"
+       class="vditor-tooltipped__nw vditor-tooltipped  user__site"
+       target="_blank" rel="noopener nofollow">
+        <svg viewBox="0 0 32 32" width="100%" height="100%">
+            <path fill="#d23f31" style="fill: var(--color1, #d23f31)" d="M5.787 17.226h17.033l5.954 9.528c0.47 0.752 0.003 1.361-1.042 1.361h-15.141z"></path>
+            <path d="M10.74 3.927h17.033c1.045 0 1.512 0.609 1.042 1.361l-5.954 9.528h-19.872l6.379-10.209c0.235-0.376 0.849-0.681 1.372-0.681z"></path>
+            <path d="M2.953 17.226h2.839l6.804 10.889h-1.892c-0.523 0-1.137-0.305-1.372-0.681z"></path>
+        </svg>
+    </a>
+
+        <a href="https://github.com/cr7mufc520"
+           aria-label="https://github.com/cr7mufc520"
+           class="vditor-tooltipped__nw vditor-tooltipped  user__site"
+           target="_blank" rel="noopener nofollow">
+            <svg viewBox="0 0 32 32" width="100%" height="100%">
+                <path d="M16 0.331c-8.836 0-16 7.163-16 16 0 7.069 4.585 13.067 10.942 15.182 0.8 0.148 1.094-0.347 1.094-0.77 0-0.381-0.015-1.642-0.022-2.979-4.452 0.968-5.391-1.888-5.391-1.888-0.728-1.849-1.776-2.341-1.776-2.341-1.452-0.993 0.11-0.973 0.11-0.973 1.606 0.113 2.452 1.649 2.452 1.649 1.427 2.446 3.743 1.739 4.656 1.33 0.143-1.034 0.558-1.74 1.016-2.14-3.554-0.404-7.29-1.777-7.29-7.907 0-1.747 0.625-3.174 1.649-4.295-0.166-0.403-0.714-2.030 0.155-4.234 0 0 1.344-0.43 4.401 1.64 1.276-0.355 2.645-0.532 4.005-0.539 1.359 0.006 2.729 0.184 4.008 0.539 3.054-2.070 4.395-1.64 4.395-1.64 0.871 2.204 0.323 3.831 0.157 4.234 1.026 1.12 1.647 2.548 1.647 4.295 0 6.145-3.743 7.498-7.306 7.895 0.574 0.497 1.085 1.47 1.085 2.963 0 2.141-0.019 3.864-0.019 4.391 0 0.426 0.288 0.925 1.099 0.768 6.354-2.118 10.933-8.113 10.933-15.18 0-8.837-7.164-16-16-16z"></path>
+            </svg>
+        </a>
+
+        <a href="https://weibo.com/cr7mufc520"
+           aria-label="https://weibo.com/cr7mufc520"
+           target="_blank"
+           class="vditor-tooltipped__nw vditor-tooltipped  user__site" rel="noopener nofollow">
+            <svg viewBox="0 0 32 32" width="100%" height="100%">
+                <path d="M13.444 27.064c-5.3 0.525-9.875-1.875-10.219-5.35-0.344-3.481 3.675-6.719 8.969-7.244 5.3-0.525 9.875 1.875 10.212 5.35 0.35 3.481-3.669 6.725-8.963 7.244zM24.038 15.521c-0.45-0.137-0.762-0.225-0.525-0.819 0.512-1.287 0.563-2.394 0.006-3.188-1.038-1.481-3.881-1.406-7.137-0.037 0 0-1.025 0.444-0.762-0.363 0.5-1.613 0.425-2.956-0.356-3.737-1.769-1.769-6.469 0.069-10.5 4.1-3.013 3.006-4.763 6.212-4.763 8.981 0 5.287 6.787 8.506 13.425 8.506 8.7 0 14.494-5.056 14.494-9.069 0-2.431-2.044-3.806-3.881-4.375z"></path>
+                <path d="M29.819 5.833c-2.1-2.331-5.2-3.219-8.063-2.612v0c-0.663 0.144-1.081 0.794-0.938 1.45 0.144 0.662 0.788 1.081 1.45 0.938 2.038-0.431 4.238 0.2 5.731 1.856s1.9 3.913 1.256 5.888v0c-0.206 0.644 0.144 1.331 0.788 1.544 0.644 0.206 1.331-0.144 1.544-0.787v-0.006c0.9-2.762 0.331-5.938-1.769-8.269z"></path>
+                <path d="M26.588 8.752c-1.025-1.138-2.538-1.569-3.925-1.269-0.569 0.119-0.931 0.688-0.813 1.256 0.125 0.569 0.688 0.931 1.25 0.806v0c0.681-0.144 1.419 0.069 1.919 0.619 0.5 0.556 0.637 1.313 0.419 1.975v0c-0.175 0.55 0.125 1.15 0.681 1.331 0.556 0.175 1.15-0.125 1.331-0.681 0.438-1.356 0.163-2.906-0.863-4.037z"></path>
+                <path d="M13.738 20.771c-0.188 0.319-0.594 0.469-0.912 0.337-0.319-0.125-0.412-0.488-0.231-0.794 0.188-0.306 0.581-0.456 0.894-0.337 0.313 0.113 0.425 0.469 0.25 0.794zM12.044 22.933c-0.512 0.819-1.613 1.175-2.438 0.8-0.813-0.369-1.056-1.319-0.544-2.119 0.506-0.794 1.569-1.15 2.388-0.806 0.831 0.356 1.1 1.3 0.594 2.125zM13.969 17.146c-2.519-0.656-5.369 0.6-6.463 2.819-1.119 2.262-0.037 4.781 2.506 5.606 2.638 0.85 5.75-0.456 6.831-2.894 1.069-2.394-0.262-4.85-2.875-5.531z"></path>
+            </svg>
+        </a>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+        <h4>目录</h4>
+<ul class="article__toc">
+        <li class="toc__h2">
+            <a href="#toc_h2_0">一、管道的使用</a>
+        </li>
+        <li class="toc__h2">
+            <a href="#toc_h2_1">二、管道的实现</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_2">1. 环形缓冲区（Ring Buffer）</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_3">2. 管道对象</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_4">3. 读操作</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_5">4. 写操作</a>
+        </li>
+        <li class="toc__h2">
+            <a href="#toc_h2_6">三、思考一下</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_7">1. 为什么父子进程可以通过管道来通信？</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_8">2. 为什么内核要使用 16 个内存页进行数据存储？</a>
+        </li>
+</ul>    </div>
+</div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="footer">
+<div class="left copyright">
+    <span style="color: gray;">&copy; 2026</span> <a href="https://vx642620018.github.io">vx1039576978 的个人博客</a> 
+</div>
+<div class="right goTop">
+    <span onclick="Util.goTop();">顶部</span>
+</div>
+<script>
+  var Label = {
+    speech: true,
+    servePath: "https://vx642620018.github.io",
+    staticServePath: "https://vx642620018.github.io",
+    luteAvailable: false,
+    hljsStyle: 'github',
+    langLabel: "zh_CN",
+    version: "4.4.0",
+    staticSite: true,
+    showCodeBlockLn: false,
+    articleId: "1681625751146",
+  }
+</script>
+<script type="text/javascript" src="https://vx642620018.github.io/js/common.min.js?1771161338301" charset="utf-8"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        Util.setTopBar()
+
+        // set selected navi
+        $("#header-navi li").each(function (i) {
+            if (i < $("#header-navi li").length - 1) {
+                var $it = $(this),
+                locationURL = window.location.pathname + window.location.search;
+                if (i === 0 && (locationURL === "/")) {
+                    $it.addClass("selected");
+                    return;
+                }
+                if (locationURL.indexOf($it.find("a").attr("href")) > -1 && i !== 0) {
+                    $it.addClass("selected");
+                }
+            }
+        });
+    });
+</script>
+
+                    </div>
+                </div>
+            </div>
+<script type="text/javascript">
+    Util.addScript('https://vx642620018.github.io/js/page.min.js?1771161338301', 'soloPageScript')
+    var page = new Page({
+        "commentContentCannotEmptyLabel": "评论不能为空",
+        "oId": "1681625751146",
+        "blogHost": "https://vx642620018.github.io",
+        "randomArticles1Label": "随机阅读：",
+        "externalRelevantArticles1Label": "站外相关阅读："
+    });
+    $(document).ready(function () {
+        page.load();
+            page.tips.externalRelevantArticlesDisplayCount = "0";
+            page.loadRandomArticles();
+            page.loadRelevantArticles('1681625751146', '<h4>相关阅读：</h4>');
+    });
+</script>
+        </div>
+    </body>
+</html>
+
+<!-- Generated by Latke (https://github.com/88250/latke) in 15ms, 2026/02/15 21:16:02 -->

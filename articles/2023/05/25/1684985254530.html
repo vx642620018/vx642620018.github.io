@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/><meta name="theme-color" content="#3b3e43"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="format-detection" content="telephone=no"/><title>2023图灵课堂Java架构师第六期学习笔记分享 - vx1039576978 的个人博客</title><meta name="description" content="download: 【图灵架构师23456期vip课程，请加微信642620018】 java分布式架构介绍 什么是分布式系统？ 要理解分布式系统，主要需要明白一下2个方面： 1.分布式系统一定是由多个节点组成的系统。 其中，节点指的是计算机服务器，而且这些节点一般不是孤立的，而是互通的。 2.这些连通的节点上部署了我们的节点，并且相互的操作会有协同。 分布式系统对于用户而言，他们面对的就是一个服务器，提供用户需要的服务而已，而实际上这些服务是通过背后的众多服务器组成的一个分布式系统，因此分布式系统看起来像是一个超级计算机一样。 例如淘宝，平时大家都会使用，它本身就是一个分布式系统，我们通过浏览器访问淘宝网站时，这个请求的背后就是一个庞大的分布式系统在为我们提供服务，整个系统中有的负责请求处理，有的负责存储，有的负责计算，最终他们相互协调把最后的结果返回并呈现给用户。 使用分布式系统主要有特点： 1.增大系统容量。 我们的业务量越来越大，而要能应对越来越大的业务量，一台机器的性能已经无法满足了，我们需要多台机器才能应对大规模的应用场景。所以，我们需要垂直或是水平拆分业务系统，让其变成一...."/><meta property="og:description" content="download: 【图灵架构师23456期vip课程，请加微信642620018】 java分布式架构介绍 什么是分布式系统？ 要理解分布式系统，主要需要明白一下2个方面： 1.分布式系统一定是由多个节点组成的系统。 其中，节点指的是计算机服务器，而且这些节点一般不是孤立的，而是互通的。 2.这些连通的节点上部署了我们的节点，并且相互的操作会有协同。 分布式系统对于用户而言，他们面对的就是一个服务器，提供用户需要的服务而已，而实际上这些服务是通过背后的众多服务器组成的一个分布式系统，因此分布式系统看起来像是一个超级计算机一样。 例如淘宝，平时大家都会使用，它本身就是一个分布式系统，我们通过浏览器访问淘宝网站时，这个请求的背后就是一个庞大的分布式系统在为我们提供服务，整个系统中有的负责请求处理，有的负责存储，有的负责计算，最终他们相互协调把最后的结果返回并呈现给用户。 使用分布式系统主要有特点： 1.增大系统容量。 我们的业务量越来越大，而要能应对越来越大的业务量，一台机器的性能已经无法满足了，我们需要多台机器才能应对大规模的应用场景。所以，我们需要垂直或是水平拆分业务系统，让其变成一...."/>    <meta name="keywords" content="Solo,Java,博客,开源"/><link rel="dns-prefetch" href="https://vx642620018.github.io"/><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"/><link rel="preconnect" href="https://vx642620018.github.io"><link rel="icon" type="image/png" href="https://b3log.org/images/brand/solo-128.png"/><link rel="apple-touch-icon" href="https://b3log.org/images/brand/solo-128.png"><link rel="shortcut icon" type="image/x-icon" href="https://b3log.org/images/brand/solo-128.png"><meta name="copyright" content="B3log"/><meta http-equiv="Window-target" content="_top"/><meta property="og:locale" content="zh_CN"/><meta property="og:title" content="2023图灵课堂Java架构师第六期学习笔记分享 - vx1039576978 的个人博客"/><meta property="og:site_name" content="vx1039576978 的个人博客"/><meta property="og:url"      content="https://vx642620018.github.io/articles/2023/05/25/1684985254530.html?"/><meta property="og:image" content="https://b3log.org/images/brand/solo-128.png"/><link rel="search" type="application/opensearchdescription+xml" title="2023图灵课堂Java架构师第六期学习笔记分享 - vx1039576978 的个人博客" href="/opensearch.xml"><link href="https://vx642620018.github.io/rss.xml" title="RSS" type="application/rss+xml" rel="alternate"/><link rel="manifest" href="https://vx642620018.github.io/manifest.json">        <link rel="canonical" href="https://vx642620018.github.io/articles/2023/05/25/1684985254530.html">            <link rel="stylesheet"
+                  href="https://vx642620018.github.io/skins/i-nove/css/base.css?1771161338301"/>
+            <link rel="prev" title="Mysql8.0如何在不影响正常业务情况下备份迁移数据库？--图灵架构师第6期vip课程百度云下载" href="https://vx642620018.github.io/articles/2023/05/23/1684836687577.html">
+            <link rel="next" title="2023图灵学院CTA架构师第6期vip视频--百度网盘下载" href="https://vx642620018.github.io/articles/2023/06/05/1685948692698.html">
+    <script src="https://vx642620018.github.io/js/lib/vditor/dist/js/icons/ant.js?v=3.9.7" async="" id="vditorIconScript"></script>    </head>
+    <body>
+        
+        <div class="bg">
+            <div class="wrapper">
+                <div class="content">
+<div class="header">
+    <h1 class="title">
+        <a href="https://vx642620018.github.io" id="logoTitle">
+            vx1039576978 的个人博客
+        </a>
+    </h1>
+    <span class="sub-title">记录精彩的程序人生</span>
+</div>
+<div id="header-navi">
+    <div class="left">
+        <ul>
+            <li>
+                <a rel="nofollow" class="home" href="https://vx642620018.github.io"></a>
+            </li>
+            <li>
+                <a href="https://vx642620018.github.io/tags.html">标签墙</a>
+            </li>
+            <li>
+                <a rel="alternate" href="https://vx642620018.github.io/rss.xml">
+                    RSS
+                    <img src="https://vx642620018.github.io/images/feed.png" alt="RSS"/>
+                </a>
+            </li>
+            <li>
+                <a class="lastNavi" href="javascript:void(0);"></a>
+            </li>
+        </ul>
+    </div>
+    <div class="right" id="statistic">
+        <span>
+            浏览数：
+            <span class='error-msg'>
+                <span data-uvstaturl="https://vx642620018.github.io">0</span>
+            </span>
+            &nbsp;&nbsp;
+        </span>
+        <span>
+            文章总数：
+            <span class='error-msg'>
+                161
+            </span>
+            &nbsp;&nbsp;
+        </span>
+    </div>
+    <div class="clear"></div>
+</div>
+                    <div class="body">
+                        <div class="left main">
+                            <div class="article">
+                                <h2 class="article-title">
+                                    <a class="no-underline" href="https://vx642620018.github.io/articles/2023/05/25/1684985254530.html">2023图灵课堂Java架构师第六期学习笔记分享</a>
+                                </h2>
+                                <div class="margin5">
+                                    <div class="article-date left">
+                                        <a rel="nofollow" class="left" title="vx1039576978" href="https://vx642620018.github.io/authors/1731863538096">
+                                            <span class="authorIcon"></span>
+                                            vx1039576978
+                                        </a>
+                                        <span class="dateIcon left"></span>
+                                        2023-05-25 11:27:34
+                                    </div>
+                                    <div class="right">
+                                        <a rel="nofollow" href="https://vx642620018.github.io/articles/2023/05/25/1684985254530.html#b3logsolocomments" class="left">
+                                            <span class="left articles-commentIcon" title="评论"></span>
+                                            <span data-uvstatcmt="1684985254060">0</span>
+                                        </a>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="vditor-reset vditor-reset--article">
+                                    <h2 id="toc_h2_0">download:</h2>
+<p>【图灵架构师23456期vip课程，请加微信642620018】</p>
+<h2 id="toc_h2_1">java分布式架构介绍</h2>
+<h3 id="toc_h3_2">什么是分布式系统？</h3>
+<p><strong>要理解分布式系统，主要需要明白一下2个方面：</strong></p>
+<p><strong>1.分布式系统一定是由多个节点组成的系统。</strong><br>
+<strong>其中，节点指的是计算机服务器，而且这些节点一般不是孤立的，而是互通的。</strong><br>
+<strong>2.这些连通的节点上部署了我们的节点，并且相互的操作会有协同。</strong><br>
+<strong>分布式系统对于用户而言，他们面对的就是一个服务器，提供用户需要的服务而已，而实际上这些服务是通过背后的众多服务器组成的一个分布式系统，因此分布式系统看起来像是一个超级计算机一样。</strong></p>
+<p><strong>例如淘宝，平时大家都会使用，它本身就是一个分布式系统，我们通过浏览器访问淘宝网站时，这个请求的背后就是一个庞大的分布式系统在为我们提供服务，整个系统中有的负责请求处理，有的负责存储，有的负责计算，最终他们相互协调把最后的结果返回并呈现给用户。</strong></p>
+<p><strong>使用分布式系统主要有特点：</strong></p>
+<p><strong>1.增大系统容量。 我们的业务量越来越大，而要能应对越来越大的业务量，一台机器的性能已经无法满足了，我们需要多台机器才能应对大规模的应用场景。所以，我们需要垂直或是水平拆分业务系统，让其变成一个分布式的架构。</strong></p>
+<p><strong>2.加强系统可用。 我们的业务越来越关键，需要提高整个系统架构的可用性，这就意味着架构中不能存在单点故障。这样，整个系统不会因为一台机器出故障而导致整体不可用。所以，需要通过分布式架构来冗余系统以消除单点故障，从而提高系统的可用性。</strong></p>
+<p><strong>3.因为模块化，所以 系统模块重用度更高</strong></p>
+<p><strong>4.因为软件服务模块被拆分，开发和发布速度可以并行而变得更快</strong></p>
+<p><strong>5.系统扩展性更高</strong></p>
+<p><strong>6.团队协作流程也会得到改善</strong></p>
+<p><strong>分布式系统的类型有三种：</strong></p>
+<p><strong>1.分布式处理，但只有一个总数据库，没有局部数据库</strong></p>
+<p><strong>2.分层式处理，每一层都有自己的数据库</strong></p>
+<p><strong>3.充分分散的分布式网络，没有中央控制部分，各节点之间的联系方式又可以有多种，如松散的联接，紧密的联接，动态的联接，广播通知式的联接等</strong></p>
+<p><strong>什么是 JAVA 分布式应用？</strong><br>
+<strong>一个大型的系统往往被分为几个子系统来做，一个子系统可以部署在一台机器的多个 JVM 上，也可以部署在多台机器上。但是每一个系统不是独立的，不是完全独立的。需要相互通信，共同实现业务功能。</strong></p>
+<p><strong>一句话来说：分布式就是通过计算机网络将后端工作分布到多台主机上，多个主机一起协同完成工作。</strong></p>
+<p><strong>实现分布式主要的方式</strong><br>
+<strong>分布式应用用到的技术： 网络通信，基于消息方式的系统间通信和基于远程调用的系统间通信。</strong></p>
+<p><strong>缺点： 就是会增加技术的复杂度。</strong><br>
+<strong>基于消息的系统通信方式，主要是利用的网络协议，比如 TCP/IP 协议。</strong><br>
+<strong>系统间的通信还需要对数据进行处理，比如同步 IO 和异步 IO。</strong><br>
+<strong>远程调用实现系统间的通信:通过调用本地的java接口的方法来透明的调用远程java的实现。具体的细节有框架来实现</strong></p>
+<h2 id="toc_h2_3">图灵Java架构师6期面试题</h2>
+<h3 id="toc_h3_4">一、架构师的日常职责是什么 ？</h3>
+<p><strong>总体而言，架构师负责软件领域的顶层设计。 架构师需要根据公司的发展，规划企业未来若干年的架构，制定可落地的架构方案，解决技术难题，做技术选型与攻关，落地具体的架构。优秀的架构师既能做架构方案，也能写具体的架构代码。</strong></p>
+<h3 id="toc_h3_5">二、开发工程师和架构师有何区别？</h3>
+<p><strong>工作重点不同：架构师重点在于前期的架构规划，需要制定可落地的架构方案，结合公司的业务场景、团队的技术水平等因素做技术选型，解决技术难题等等；而开发工程师重点在于具体的落地，特别的， 开发工程师的工作重点落地具体的功能。</strong><br>
+<strong>能力要求不同：架构师要求比较高，要有架构的广度、深度，需要掌握一系列的架构技术栈，要求有架构实战经验，要有很强的系统分析、系统架构、系统设计的能力。 开发工程师主要是要求熟悉基本的技术栈，熟悉相关业务，快速落地产品的相关功能。</strong></p>
+<h3 id="toc_h3_6">三、业务架构师与基础架构师区别</h3>
+<p><strong>对于java程序猿而言，架构师分为业务架构师，基础架构师两大类，从高级开发转成业务架构师，难度小，出成绩快。业务架构和基础架构有70%是一样的，那就是都要求有架构能力，剩下的30%是业务架构要求熟练掌握业务，制定架构方案，架构落地，基础架构则是100%要求纯技术。短期而言，看似基础架构更风光，其实不然。业务架构发展前景更好一些，因为35岁以后，拼的是综合能力，不再是纯架构能力。业务架构要求有更好的沟通能力，架构规划，架构落地能力，一定的行业业务背景，甚至管理能力，所以从业务架构更容易做到技术总监或cto。如果一直做基础架构，那么可能是首席架构师。一般的架构老司机是业务架构，基础架构通吃的，好就业，到什么山唱什么歌。</strong></p>
+<h3 id="toc_h3_7">四、 UML对系统架构重不重要？</h3>
+<p><strong>UML是架构基本功，但又容易被开发童鞋忽视。架构师要有很强的系统分析，系统架构，系统设计，架构表达能力，通过掌握UML，提高这些能力。业务架构师 通过 UML可以抽象出业务平台的核心用例，可以把复杂的业务流程以分析模型表达清楚，高阶设计阶段，利用包图，组件图，部署图把设计，部署表达清楚。基础架构师设计中间件，可以画uml协作图，或活动图表达技术功能的流程，设计阶段，可以画包图，表达各个包的功能，然后多人可以一起撸技术中间件的具体代码，做具体架构落地。</strong></p>
+<h3 id="toc_h3_8">五、Springcloud和Dubbo用哪个？</h3>
+<p><strong>Dubbo相对而言，成熟稳定，文档齐全门槛低一些，但是很多服务治理方面的功能是缺失的。Springcloud大而全，但很多功能不强大，不成熟。长期而言，个人更看好Spring cloud,虽然目前还有一些坑，而且门槛也比Dubbo高，但整体发展趋势比Dubbo强，Spring cloud生态体系比Dubbo更好，功能更全面。掌握Dubbo和Spring cloud是不冲突的，二者有很多相同的地方，又有很多地方不同。</strong></p>
+<h3 id="toc_h3_9">六、分布式定时任务和一般的任务都什么区别？</h3>
+<p><strong>分布式定时任务一般是多台服务器可以同时跑定时任务，效率要比一般的任务高，可用性要比一般的任务高(可以做失效转移，架构上没有单点问题，任务节点可以监控)，性能要比一般任务的强（架构是强伸缩性，多台机器一起运行，执行时间要短），支持的并发能力远远超过一般的任务（多台机器执行，可以把海量数据分配给不同的机器执行，并发能力非常好）。</strong></p>
+<h3 id="toc_h3_10">七、高并发和高性能的区别和联系是什么？</h3>
+<p><strong>简单而言，高并发是访问数量，高性能是访问响应时间，两个不同的角度。 并发量化的常见参数指标，qps,tps等等，性能量化指标一般是处理时间，比如:接口响应时间是10ms和5分钟，性能是完全不一样的。qps为100和qps为50万的并发架构完全不一样。如果架构不合理，并发量越大，性能越差。如果架构合理，并发量的大小对性能基本没影响，加机器即可，软件架构不需要任何改变。</strong></p>
+<h3 id="toc_h3_11">八、reactor线程指的是reactor模型中的哪个部分？</h3>
+<p><strong>这个问题本身是有问题的。 reactor线程模型分为单线程，多线程，主从多线程。 实际编程过程中，第二种用的是最多的，</strong></p>
+<h3 id="toc_h3_12">九、消息中间件目前使用频率最大是RabbitMQ吗？</h3>
+<p><strong>技术选型是从技术的使用场景，优缺点等方面综合评估的。很多企业用RocketMQ和kafka,大数据基本100%选kafka.</strong></p>
+<h3 id="toc_h3_13">十、为什么要用spring?</h3>
+<p><strong>spring能够很好的和各大框架整合spring 通过IOC容器管理了对象的创建和销毁 工厂模式在使用hiberna，mybatis的时候，不用每次都编写提交的事务的代码，可以使用spring的AOP来管理事务 AOP其实就是一个动态代理的实现声明式事务和编程式事务。</strong></p>
+<h3 id="toc_h3_14">十一、mybatis的优缺点？</h3>
+<p><strong>优点：SQL写在XML中，便于统一管理和优化提供映射标签，支持对象和数据库的orm字段关系映射可以对SQL进行优化。</strong><br>
+<strong>缺点： SQL工作量大mybagtis移植姓不好不支持级联。</strong></p>
+<h3 id="toc_h3_15">十二、谈谈SSH整合?</h3>
+<p><strong>struts(表示层)+spring(业务层)+hibernate(持久层)struts是一个表示层的框架，主要用于接收请求，分发请求。struts其实属于MVC中的VC层次的hibernate是一个持久层的框架，主要负责与关系数据库的操作spring是一个业务层的框架，是一个整合的框架，能够很好的黏合表示层和持久层。</strong></p>
+<h3 id="toc_h3_16">十三、maven是什么?有什么作用？</h3>
+<p><strong>是一个项目管理、构建工具</strong><br>
+<strong>作用：帮助下载jar 寻找依赖，帮助下载依赖 热部署、热编译</strong></p>
+<h3 id="toc_h3_17">十四、WEB 前端优化？</h3>
+<p><strong>减少HTTP请求的数量（合并css、js、图片）利用浏览器的缓存机制、利用GZIP压缩机制：只针对文本类资源有效把CSS文件放在HTML开头把javascript文件放在HTML结尾避免CSS表达式（判断浏览器）使用javascript压缩减少DNS查找避免重定向使用ajax。</strong></p>
+<h3 id="toc_h3_18">十五、安全性测试。</h3>
+<p><strong>利用安全性测试技术，找到潜在的漏洞</strong></p>
+<h3 id="toc_h3_19">十六、事务隔离级别（4种）</h3>
+<p><strong>1、Serializable(串行化)：一个事务在执行过程中完全看不到其他事物对数据库所做的更新（事务执行的时候不允许别的事务并发执行，事务只能一个接着一个地执行，而不能并发执行）。</strong><br>
+<strong>2、Repeatable Read（可重复读）：一个事务在执行过程中可以看到其它事务已经提交的新插入的记录，但是不能看到其它事务对已有记录的更新。</strong><br>
+<strong>3、Read Commited（读已提交数据）：一个事务在执行过程中可以看到其它事务已经提交的新插入的记录，而且能看到其它事务已经提交的对已有记录的更新。</strong><br>
+<strong>4、Read Uncommitted（读未提交数据）：一个事务在执行过程中可以看到其它事务没有提交的新插入的记录的更新，而且能看其它事务没有提交到对已有记录的更新。</strong></p>
+<h3 id="toc_h3_20">十七、MYSQL存储引擎（4种）</h3>
+<p><strong>1、MyISAM它不支持事务，也不支持外键，尤其是访问速度快，对事务完整性没有要求或者以SELECT、INSERT为主的应用基本都可以使用这个引擎来创建表。</strong><br>
+<strong>2、每个MyISAM在磁盘上存储成3个文件，其中文件名和表名都相同，但是扩展名分别为：.frm(存储表定义) ,YD(MYData，存储数据) , MYI(MYIndex，存储索引),InnoDB,InnoDB存储引擎提供了具有提交、回滚和崩溃恢复能力的事务安全。但是对比MyISAM的存储引擎，InnoDB写的处理效率差一些并且会占用更多的磁盘空间以保留数据和索引。</strong><br>
+<strong>3、memory使用存在内存中的内容来创建表。每个MEMORY表实际对应一个磁盘文件，格式是.frm。MEMORY类型的表访问非常快，因为它到数据是放在内存中的，并且默认使用HASH索引，但是一旦服务器关闭，表中的数据就会丢失，但表还会继续存在。</strong><br>
+<strong>4、merge存储引擎是一组MyISAM表的组合，这些MyISAM表结构必须完全相同，MERGE表中并没有数据，对MERGE类型的表可以进行查询、更新、删除的操作，这些操作实际上是对内部的MyISAM表进行操作。</strong></p>
+<h3 id="toc_h3_21">十八、事务传播特性。</h3>
+<p><strong>1、 PROPAGATION_REQUIRED: 如果存在一个事务，则支持当前事务。如果没有事务则开启</strong><br>
+<strong>2、 PROPAGATION_SUPPORTS: 如果存在一个事务，支持当前事务。如果没有事务，则非事务的执行</strong><br>
+<strong>3、PROPAGATION_MANDATORY: 如果已经存在一个事务，支持当前事务。如果没有一个活动的事务，则抛出异常。</strong><br>
+<strong>4、 PROPAGATION_REQUIRES_NEW: 总是开启一个新的事务。如果一个事务已经存在，则将这个存在的事务挂起。</strong><br>
+<strong>5、PROPAGATION_NOT_SUPPORTED: 总是非事务地执行，并挂起任何存在的事务。</strong><br>
+<strong>6、 PROPAGATION_NEVER: 总是非事务地执行，如果存在一个活动事务，则抛出异常</strong><br>
+<strong>7、 PROPAGATION_NESTED：如果一个活动的事务存在，则运行在一个嵌套的事务中. 如果没有活动事务,</strong></p>
+<h3 id="toc_h3_22">十九、TCP协议（传输控制协议Transmission Control Protocol ）</h3>
+<p><strong>建立链接：三次握手(1.给对方拨号 2.喂，您好，请问是哪位 3 我是小刘)</strong><br>
+<strong>关闭链接：四次挥手保证可靠</strong></p>
+<h3 id="toc_h3_23">二十、shiro 是什么</h3>
+<p><strong>Apache Shiro 是一个强大易用的java安全框架，提供了认证、授权、加密和会话管理等功能。</strong><br>
+<strong>认证 ：验证用户来核实他们的身份</strong><br>
+<strong>授权：会话管理</strong></p>
+<h3 id="toc_h3_24">二十一、什么RESTful（表现层状态转化）架构？</h3>
+<p><strong>（1）每一个URI代表一种资源；</strong><br>
+<strong>（2）客户端和服务器之间，传递这种资源的某种表现层；</strong><br>
+<strong>（3）客户端通过四个HTTP动词，对服务器端资源进行操作，实现"表现层状态转化"。</strong></p>
+<p>参考：<br>
+<a href="https://www.mufc360.cn/archives/tl10246" target="_blank">https://www.mufc360.cn/archives/tl10246</a><br>
+<a href="https://www.cr7mufc520.cn/archives/tl10246" target="_blank">https://www.cr7mufc520.cn/archives/tl10246</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/632055363" target="_blank">https://zhuanlan.zhihu.com/p/632055363</a></p>
+                                    <div class="marginTop12">
+                                        <hr>
+
+标题：2023图灵课堂Java架构师第六期学习笔记分享<br>
+作者：<a href="https://vx642620018.github.io" target="_blank">vx1039576978</a><br>
+地址：<a href="https://vx642620018.github.io/articles/2023/05/25/1684985254530.html" target="_blank">https://vx642620018.github.io/articles/2023/05/25/1684985254530.html</a><br>
+
+<!-- 签名档内可使用 HTML、JavaScript -->
+<br>
+                                    </div>
+                                </div>
+                                <div class="margin5">
+                                    <a rel="nofollow" class="left" href="https://vx642620018.github.io/articles/2023/05/25/1684985254530.html">
+                                        <span title="浏览" class="left article-browserIcon"></span>
+                                        <span data-uvstaturl="https://vx642620018.github.io/articles/2023/05/25/1684985254530.html">0</span>
+                                    </a>
+                                    <div class="left">
+                                        <span title="标签" class="tagsIcon"></span>
+                                        <span>
+                                            <a rel="tag" href="https://vx642620018.github.io/tags/Java%E6%9E%B6%E6%9E%84%E5%B8%88">
+                                                Java架构师</a>,
+                                        </span>
+                                        <span>
+                                            <a rel="tag" href="https://vx642620018.github.io/tags/mca%E6%9E%B6%E6%9E%84%E5%B8%88">
+                                                mca架构师</a>,
+                                        </span>
+                                        <span>
+                                            <a rel="tag" href="https://vx642620018.github.io/tags/%E9%A9%AC%E5%A3%AB%E5%85%B5%E5%AD%A6%E9%99%A2">
+                                                马士兵学院</a>,
+                                        </span>
+                                        <span>
+                                            <a rel="tag" href="https://vx642620018.github.io/tags/%E9%A9%AC%E8%80%81%E5%B8%88">
+                                                马老师</a>
+                                        </span>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div>
+                                    <div class="right">
+                                        <a href="https://vx642620018.github.io/articles/2023/06/05/1685948692698.html">新一篇：2023图灵学院CTA架构师第6期vip视频--百度网盘下载</a>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="right">
+                                        <a href="https://vx642620018.github.io/articles/2023/05/23/1684836687577.html">旧一篇：Mysql8.0如何在不影响正常业务情况下备份迁移数据库？--图灵架构师第6期vip课程百度云下载</a>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div id="relevantArticles" class="article-relative"></div>
+                                <div id="randomArticles" class="article-relative"></div>
+                                <div id="externalRelevantArticles" class="article-relative"></div>
+                            </div>
+                                <div id="gitalk-container" class="comments" style="padding-top: 15px"></div>
+                                <div id="b3logsolocomments"></div>
+                                <div id="vcomment" class="comments"
+                                 style="padding-top: 15px"
+                                 data-name="vx1039576978" data-postId="1684985254060"></div>
+                        </div>
+                        <div class="right">
+<div id="sideNavi" class="side-navi">
+    <div class="item">
+        <h4>公告</h4>
+        <div class="marginLeft12 marginTop12">
+            Open Source, Open Mind, <br/>Open Sight, Open Future!
+
+<!-- 公告栏可使用 HTML、JavaScript，比如可以在此加入第三方统计 js -->
+        </div>
+        <div class="marginTop12 marginLeft12">
+    <a href="https://ld246.com/member/vx1039576978"
+       aria-label="https://ld246.com/member/vx1039576978"
+       class="vditor-tooltipped__nw vditor-tooltipped  user__site"
+       target="_blank" rel="noopener nofollow">
+        <svg viewBox="0 0 32 32" width="100%" height="100%">
+            <path fill="#d23f31" style="fill: var(--color1, #d23f31)" d="M5.787 17.226h17.033l5.954 9.528c0.47 0.752 0.003 1.361-1.042 1.361h-15.141z"></path>
+            <path d="M10.74 3.927h17.033c1.045 0 1.512 0.609 1.042 1.361l-5.954 9.528h-19.872l6.379-10.209c0.235-0.376 0.849-0.681 1.372-0.681z"></path>
+            <path d="M2.953 17.226h2.839l6.804 10.889h-1.892c-0.523 0-1.137-0.305-1.372-0.681z"></path>
+        </svg>
+    </a>
+
+        <a href="https://github.com/cr7mufc520"
+           aria-label="https://github.com/cr7mufc520"
+           class="vditor-tooltipped__nw vditor-tooltipped  user__site"
+           target="_blank" rel="noopener nofollow">
+            <svg viewBox="0 0 32 32" width="100%" height="100%">
+                <path d="M16 0.331c-8.836 0-16 7.163-16 16 0 7.069 4.585 13.067 10.942 15.182 0.8 0.148 1.094-0.347 1.094-0.77 0-0.381-0.015-1.642-0.022-2.979-4.452 0.968-5.391-1.888-5.391-1.888-0.728-1.849-1.776-2.341-1.776-2.341-1.452-0.993 0.11-0.973 0.11-0.973 1.606 0.113 2.452 1.649 2.452 1.649 1.427 2.446 3.743 1.739 4.656 1.33 0.143-1.034 0.558-1.74 1.016-2.14-3.554-0.404-7.29-1.777-7.29-7.907 0-1.747 0.625-3.174 1.649-4.295-0.166-0.403-0.714-2.030 0.155-4.234 0 0 1.344-0.43 4.401 1.64 1.276-0.355 2.645-0.532 4.005-0.539 1.359 0.006 2.729 0.184 4.008 0.539 3.054-2.070 4.395-1.64 4.395-1.64 0.871 2.204 0.323 3.831 0.157 4.234 1.026 1.12 1.647 2.548 1.647 4.295 0 6.145-3.743 7.498-7.306 7.895 0.574 0.497 1.085 1.47 1.085 2.963 0 2.141-0.019 3.864-0.019 4.391 0 0.426 0.288 0.925 1.099 0.768 6.354-2.118 10.933-8.113 10.933-15.18 0-8.837-7.164-16-16-16z"></path>
+            </svg>
+        </a>
+
+        <a href="https://weibo.com/cr7mufc520"
+           aria-label="https://weibo.com/cr7mufc520"
+           target="_blank"
+           class="vditor-tooltipped__nw vditor-tooltipped  user__site" rel="noopener nofollow">
+            <svg viewBox="0 0 32 32" width="100%" height="100%">
+                <path d="M13.444 27.064c-5.3 0.525-9.875-1.875-10.219-5.35-0.344-3.481 3.675-6.719 8.969-7.244 5.3-0.525 9.875 1.875 10.212 5.35 0.35 3.481-3.669 6.725-8.963 7.244zM24.038 15.521c-0.45-0.137-0.762-0.225-0.525-0.819 0.512-1.287 0.563-2.394 0.006-3.188-1.038-1.481-3.881-1.406-7.137-0.037 0 0-1.025 0.444-0.762-0.363 0.5-1.613 0.425-2.956-0.356-3.737-1.769-1.769-6.469 0.069-10.5 4.1-3.013 3.006-4.763 6.212-4.763 8.981 0 5.287 6.787 8.506 13.425 8.506 8.7 0 14.494-5.056 14.494-9.069 0-2.431-2.044-3.806-3.881-4.375z"></path>
+                <path d="M29.819 5.833c-2.1-2.331-5.2-3.219-8.063-2.612v0c-0.663 0.144-1.081 0.794-0.938 1.45 0.144 0.662 0.788 1.081 1.45 0.938 2.038-0.431 4.238 0.2 5.731 1.856s1.9 3.913 1.256 5.888v0c-0.206 0.644 0.144 1.331 0.788 1.544 0.644 0.206 1.331-0.144 1.544-0.787v-0.006c0.9-2.762 0.331-5.938-1.769-8.269z"></path>
+                <path d="M26.588 8.752c-1.025-1.138-2.538-1.569-3.925-1.269-0.569 0.119-0.931 0.688-0.813 1.256 0.125 0.569 0.688 0.931 1.25 0.806v0c0.681-0.144 1.419 0.069 1.919 0.619 0.5 0.556 0.637 1.313 0.419 1.975v0c-0.175 0.55 0.125 1.15 0.681 1.331 0.556 0.175 1.15-0.125 1.331-0.681 0.438-1.356 0.163-2.906-0.863-4.037z"></path>
+                <path d="M13.738 20.771c-0.188 0.319-0.594 0.469-0.912 0.337-0.319-0.125-0.412-0.488-0.231-0.794 0.188-0.306 0.581-0.456 0.894-0.337 0.313 0.113 0.425 0.469 0.25 0.794zM12.044 22.933c-0.512 0.819-1.613 1.175-2.438 0.8-0.813-0.369-1.056-1.319-0.544-2.119 0.506-0.794 1.569-1.15 2.388-0.806 0.831 0.356 1.1 1.3 0.594 2.125zM13.969 17.146c-2.519-0.656-5.369 0.6-6.463 2.819-1.119 2.262-0.037 4.781 2.506 5.606 2.638 0.85 5.75-0.456 6.831-2.894 1.069-2.394-0.262-4.85-2.875-5.531z"></path>
+            </svg>
+        </a>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="item">
+        <h4>目录</h4>
+<ul class="article__toc">
+        <li class="toc__h2">
+            <a href="#toc_h2_0">download:</a>
+        </li>
+        <li class="toc__h2">
+            <a href="#toc_h2_1">java分布式架构介绍</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_2">什么是分布式系统？</a>
+        </li>
+        <li class="toc__h2">
+            <a href="#toc_h2_3">图灵Java架构师6期面试题</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_4">一、架构师的日常职责是什么 ？</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_5">二、开发工程师和架构师有何区别？</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_6">三、业务架构师与基础架构师区别</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_7">四、 UML对系统架构重不重要？</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_8">五、Springcloud和Dubbo用哪个？</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_9">六、分布式定时任务和一般的任务都什么区别？</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_10">七、高并发和高性能的区别和联系是什么？</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_11">八、reactor线程指的是reactor模型中的哪个部分？</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_12">九、消息中间件目前使用频率最大是RabbitMQ吗？</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_13">十、为什么要用spring?</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_14">十一、mybatis的优缺点？</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_15">十二、谈谈SSH整合?</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_16">十三、maven是什么?有什么作用？</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_17">十四、WEB 前端优化？</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_18">十五、安全性测试。</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_19">十六、事务隔离级别（4种）</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_20">十七、MYSQL存储引擎（4种）</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_21">十八、事务传播特性。</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_22">十九、TCP协议（传输控制协议Transmission Control Protocol ）</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_23">二十、shiro 是什么</a>
+        </li>
+        <li class="toc__h3">
+            <a href="#toc_h3_24">二十一、什么RESTful（表现层状态转化）架构？</a>
+        </li>
+</ul>    </div>
+</div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="footer">
+<div class="left copyright">
+    <span style="color: gray;">&copy; 2026</span> <a href="https://vx642620018.github.io">vx1039576978 的个人博客</a> 
+</div>
+<div class="right goTop">
+    <span onclick="Util.goTop();">顶部</span>
+</div>
+<script>
+  var Label = {
+    speech: true,
+    servePath: "https://vx642620018.github.io",
+    staticServePath: "https://vx642620018.github.io",
+    luteAvailable: false,
+    hljsStyle: 'github',
+    langLabel: "zh_CN",
+    version: "4.4.0",
+    staticSite: true,
+    showCodeBlockLn: false,
+    articleId: "1684985254060",
+  }
+</script>
+<script type="text/javascript" src="https://vx642620018.github.io/js/common.min.js?1771161338301" charset="utf-8"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        Util.setTopBar()
+
+        // set selected navi
+        $("#header-navi li").each(function (i) {
+            if (i < $("#header-navi li").length - 1) {
+                var $it = $(this),
+                locationURL = window.location.pathname + window.location.search;
+                if (i === 0 && (locationURL === "/")) {
+                    $it.addClass("selected");
+                    return;
+                }
+                if (locationURL.indexOf($it.find("a").attr("href")) > -1 && i !== 0) {
+                    $it.addClass("selected");
+                }
+            }
+        });
+    });
+</script>
+
+                    </div>
+                </div>
+            </div>
+<script type="text/javascript">
+    Util.addScript('https://vx642620018.github.io/js/page.min.js?1771161338301', 'soloPageScript')
+    var page = new Page({
+        "commentContentCannotEmptyLabel": "评论不能为空",
+        "oId": "1684985254060",
+        "blogHost": "https://vx642620018.github.io",
+        "randomArticles1Label": "随机阅读：",
+        "externalRelevantArticles1Label": "站外相关阅读："
+    });
+    $(document).ready(function () {
+        page.load();
+            page.tips.externalRelevantArticlesDisplayCount = "0";
+            page.loadRandomArticles();
+            page.loadRelevantArticles('1684985254060', '<h4>相关阅读：</h4>');
+    });
+</script>
+        </div>
+    </body>
+</html>
+
+<!-- Generated by Latke (https://github.com/88250/latke) in 22ms, 2026/02/15 21:16:02 -->
